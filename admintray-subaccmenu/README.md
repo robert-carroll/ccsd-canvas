@@ -48,7 +48,7 @@ Suppose your directory structure looks something like the following, where (#) i
       - - - - Math (4)
       - - - Course Shells (3)
 
-When we search for **Science** and get mutiple sub accounts of 'Science', and we can't identify which one we want to choose.
+When we search for **Science** and get multiple sub accounts of 'Science', and we can't identify which one we want to choose.
       
 1. Science
 2. Science
