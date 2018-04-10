@@ -1,0 +1,23 @@
+ul#admin-tray-sam, ul#admin-tray-sam ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+/* nested sub list */
+ul#admin-tray-sam ul {
+    margin-left: 5px;
+    border-left: 1px dotted #ccc;
+    padding-left: 5px;
+}
+ul#admin-tray-sam a.toggle::after {
+    float: right;
+    content: '⬘';
+}
+input#admin-tray-sam-search {
+    width: 95%;
+}
+ol#admin-tray-sam-results {
+    border-bottom: 2px solid #ccc;
+    margin: 0;
+    padding-left: 18px;
+}
