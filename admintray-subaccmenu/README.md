@@ -18,7 +18,7 @@ Collapsed | Expanded | Search
 
 
 ### Configuration
-Zero to little configuration is needed. The script will pull the `ENV.DOMAIN_ROOT_ACCOUNT_ID` from Canvas, and upon load will initialize an API call to collect every sub acocunt in your instance, compile a recursive HTML unordered list and store it your browser's `localStorage`.
+Zero to little configuration is needed. The script will pull the `ENV.DOMAIN_ROOT_ACCOUNT_ID` from Canvas, and upon load will initialize an API call (a loop of x/100) to collect every sub account in your instance, compile a recursive HTML unordered list and store it your browser's `localStorage`.
 
 > Depending on the number of your sub accounts and internet speed, this will take a moment, be patient for the first load, open the tray and wait for it to show up. This takes us about 45-60 seconds.
 
