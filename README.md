@@ -16,6 +16,6 @@ This repo will expand as we release features and solutions that we feel will ben
 * Analytics
 
 ## Support
-Once again, the code here is provided as is, with no warranty. Instructure nor CCSD can support your use of this code.
+Once again, the code here is provided as is, with no warranty. Neither Instructure or CCSD can support your use of this code.
 
 We will make every attempt to review and update the code in this repo as we review its use in our own code-base. We strongly suggest reviewing the [Canvas Release Notes](https://community.canvaslms.com/community/answers/releases) and the Canvas 3 week production cycle. We review our code in beta in order to prevent production issues, we suggest you do the same.
