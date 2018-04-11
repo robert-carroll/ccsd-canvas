@@ -12,9 +12,7 @@ If you use the code without these utilities, you will see `[Uncaught ReferenceEr
 
 ## onPage() & hasAnyRole()
 
-Originally presented by @RyanFlorence for InstructureCon 2013.
-
-[Best Practices for Using Global Javascript | InstructureCon 2013](https://www.youtube.com/watch?v=ag6mxnBMTnQ)
+Originally presented by @RyanFlorence - [Best Practices for Using Global Javascript | InstructureCon 2013](https://www.youtube.com/watch?v=ag6mxnBMTnQ)
 
 https://gist.github.com/ryanflorence/5817898
 
