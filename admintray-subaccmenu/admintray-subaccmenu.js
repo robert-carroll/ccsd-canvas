@@ -1,7 +1,7 @@
 /**
 // @name        Admin Tray - Sub Account Menu
 // @namespace   https://github.com//robert-carroll/ccsd-canvas
-// @author		Robert Carroll <carror@nv.ccsd.net>
+// @author      Robert Carroll <carror@nv.ccsd.net>
 **/
 (function() {
     var subacctray = {
