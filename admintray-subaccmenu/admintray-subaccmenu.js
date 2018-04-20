@@ -120,7 +120,6 @@
         $('#global_nav_accounts_link').click(function() {
             var callback = function(mutationsList) {
                 if ($(subacctray.where).length == 1 && $("li#adm-tray-subacctray").length == 0 && $.active == 0) {
-                    console.log('mutation')
                     subacctray.init()
                 }
             }
