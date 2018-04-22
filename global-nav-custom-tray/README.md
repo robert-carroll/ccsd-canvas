@@ -75,4 +75,5 @@ if(ENV.current_user_roles.indexOf('teacher') >= 0 || ENV.current_user_roles.inde
 
 ## Credits for the included navigation tray icon - Pin
 Pin by [Gregor Cresnar](https://thenounproject.com/grega.cresnar/) from [The Noun Project](https://thenounproject.com/)
+
 https://creativecommons.org/licenses/by/3.0/
