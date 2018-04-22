@@ -1,7 +1,7 @@
 
 # Global Navigation - Custom Tray
 
-This JavaScript will spawn and style (with CSS) DOM elements that mimic the Canvas global navigation tray, with animated easing for open and closing the tray, and other interactions with the global navigation.
+This JavaScript will spawn and style (with CSS) DOM elements that mimic the Canvas global navigation tray, with animated easing for opening and closing the tray, and other interactions with the global navigation.
 
 ![
 ](https://s3-us-west-2.amazonaws.com/ccsd-canvas/git-docs/global-nav-custom-tray.png)
