@@ -77,3 +77,7 @@ if(ENV.current_user_roles.indexOf('teacher') >= 0 || ENV.current_user_roles.inde
 Pin by [Gregor Cresnar](https://thenounproject.com/grega.cresnar/) from [The Noun Project](https://thenounproject.com/)
 
 https://creativecommons.org/licenses/by/3.0/
+
+
+## Canvas Community Discussion
+https://community.canvaslms.com/message/101582-global-nav-custom-tray
