@@ -32,7 +32,7 @@ if(ENV.current_user_roles.indexOf('student') >= 0){
         ///* set tray title, icon, links and footer here *///
         ///*  for user role based conditions see README  *///
         var title   = 'Resources',
-            svg     = 'https://ccsd-canvas.s3.amazonaws.com/branding/images/pin-gregor-cresnar.svg',
+            svg     = 'https://hosted.img.cdn/pin-gregor-cresnar.svg',
             trayLinks = [
                 { href: 'http://www.example.com/your-library', title: 'Library', desc:'Optional text description' },
                 { href: 'http://www.google.com', title: 'Google' },
@@ -52,7 +52,7 @@ You can also create a tray that will appear for all users, but provide links (or
 
 ```javascript
 var title   = 'Resources',
-    svg     = 'https://ccsd-canvas.s3.amazonaws.com/branding/images/pin-gregor-cresnar.svg',
+    svg     = 'https://hosted.img.cdn/pin-gregor-cresnar.svg',
     // default links for all users
     trayLinks = [
         { href: 'http://www.example.com/your-library', title: 'Library', desc:'Optional text description' },
