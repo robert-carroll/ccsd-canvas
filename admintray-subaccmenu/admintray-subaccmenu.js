@@ -6,8 +6,8 @@
 (function() {
     var subacctray = {
         cfg: {
-            // this should work for most canvas instances...
-            // if not you may have to statically add your root account id
+            // this should work for most Canvas instances...
+            // if not, you may have to statically add your root account id
             root: parseInt(ENV.DOMAIN_ROOT_ACCOUNT_ID.toString().split("0000").pop()),
             recursive: true,
             active: true
@@ -15,10 +15,10 @@
         // used for search results, result:parent
         // see documentation for more details
         skipd: {},
-        // the DOM element we are going to look for, and place the menu after, see append_html() for more
+         /* !!!! should be no need to edit below here, unless you're adventurous */
+        // the DOM element we are going to look for, and place the menu after, see subacctray.append()
         where: '.tray-with-space-for-global-nav a:contains("All Accounts")',
-        /* !!!! should be no need to edit below here, unless you're adventurous */
-        depth: 0, // just a global value to track depth during recursion
+        depth: 0, // just a place to track depth during recursion
         stack: [], // the response data from the api, all collected
         tree: [], // the complete recursive tree of the sub account structure
         html: '' // the final parsed HTML menu string that is held in LocalStorage to save API calls
@@ -67,22 +67,32 @@
             }
         html += '</ul>'
         subacctray.depth--
-            return html
+        return html
     }
-    subacctray.append_html = function() {
-
-        subacctray.html = localStorage.getItem('adm_tray_sub_acc_menu')
-
+    subacctray.append = function(html) {
         var appendToTray = $(subacctray.where)
-        if (!appendToTray.length) return;
+        if(!appendToTray.length) return;
+        // start fresh
+        if ($('#adm-tray-subacctray')) { $('#adm-tray-subacctray').remove() }
+        // append html to tray
         appendToTray.closest('li').after(
-            $('<li/>', {
+            $('<li>', {
                 'id': 'adm-tray-subacctray',
                 // dynamically grab the class set from the closest LI, for continuity and maybe future proof some Canvas updates
                 'class': $(subacctray.where).closest('li').attr('class'),
-                html: '<hr><input type="text" id="admin-tray-sam-search" placeholder="Search..." /><ol id="admin-tray-sam-results"></ol>' + subacctray.html
+                html: html
             })
         )
+    }
+    subacctray.menu = function() {
+        // get menu html from local storage
+        subacctray.html = localStorage.getItem('adm_tray_sub_acc_menu')
+        // tray menu
+        var menu = '<hr><input type="text" id="admin-tray-sam-search" placeholder="Search..." /><ol id="admin-tray-sam-results"></ol>'
+                + subacctray.html
+                + '<a href="#" class="reload"></span>'
+        subacctray.append(menu)
+
         $('ul#admin-tray-sam').delegate('a.toggle', 'click', function() {
             $(this).parent().children('ul').slideToggle(250)
         })
@@ -115,6 +125,15 @@
                 })
             }
         })
+        // reload
+        $('#adm-tray-subacctray a.reload').on('click', function() {
+            if (confirm("This will clear and reload the menu, with any sub account changes that have been made.\nDo you want to continue?")) {
+                localStorage.removeItem('adm_tray_sub_acc_menu')
+                subacctray.depth = 0, subacctray.stack = [], subacctray.tree = [], subacctray.html = ''
+                $('li#adm-tray-subacctray').fadeOut('slow', subacctray.init)
+                subacctray.append('<div class="loader"></div>')
+            }
+        })
     }
     subacctray.listener = function() {
         $('#global_nav_accounts_link').click(function() {
@@ -122,11 +141,12 @@
                 if ($(subacctray.where).length == 1 && $("li#adm-tray-subacctray").length == 0 && $.active == 0) {
                     subacctray.init()
                 }
+                if ($(subacctray.where).length == 1 && $("li#adm-tray-subacctray").length == 0 && $.active == 1) {
+                    subacctray.append('<div class="loader"></div>')
+                }
             }
             var observer = new MutationObserver(callback)
-            observer.observe(document.body, {
-                childList: true,
-                subtree: true
+            observer.observe(document.body, { childList: true, subtree: true
             })
         })
     }
@@ -141,7 +161,7 @@
                 $.ajax({
                     method: 'get',
                     dataType: 'json',
-                    url: '/api/v1/accounts/' + ENV.DOMAIN_ROOT_ACCOUNT_ID + '/sub_accounts',
+                    url: '/api/v1/accounts/' + subacctray.cfg.root + '/sub_accounts',
                     cache: true,
                     data: {
                         'recursive': 'true',
@@ -194,12 +214,11 @@
                 var html = subacctray.tree_to_html(subacctray.tree, subacctray.cfg.root)
                 // save html menu to local storage for the user
                 subacctray.html = localStorage.setItem('adm_tray_sub_acc_menu', html)
-                subacctray.append_html()
+                subacctray.menu()
             });
-
             // we already have it in local storage
         } else if (localStorage.adm_tray_sub_acc_menu) {
-            subacctray.append_html()
+            subacctray.menu()
         }
         subacctray.listener()
     }
