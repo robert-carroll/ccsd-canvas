@@ -70,6 +70,10 @@ And both are links to their respective account.
 
 > Note: You can add multiple skips, but each depth must be unique
 
+### Reload
+The ↻ button at the bottom right of the menu will clear the menu from localStorage and recompile. Use this when you or other admins have added or removed sub accounts in your instance.
+
+
 ### User Impact
 
 As mentioned above, CCSD has **5 system admins**, with 40,000 Employees and over 300,000 Students. Be kind to your users, use the snippet below to reduce the impact of your **admin-only** tools. A file is also included in the repo.
