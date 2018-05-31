@@ -11,7 +11,7 @@ ul#admin-tray-sam ul {
 }
 ul#admin-tray-sam a.toggle::after {
     float: right;
-    content: '⬘';
+    content: '\2B18';
 }
 input#admin-tray-sam-search {
     width: 95%;
@@ -20,4 +20,20 @@ ol#admin-tray-sam-results {
     border-bottom: 2px solid #ccc;
     margin: 0;
     padding-left: 18px;
+}
+li#adm-tray-subacctray a.reload::after {
+    float: right;
+    content: '\21BB';
+}
+li#adm-tray-subacctray .loader {
+    border: 8px solid #eee;
+    border-top: 8px solid #ccc;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    animation: adm-tray-subacctray-load 2s linear infinite;
+}
+@keyframes adm-tray-subacctray-load {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
