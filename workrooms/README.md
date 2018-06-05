@@ -43,8 +43,8 @@ The configuration variables have been set toward the top of the file to make it 
 ```javascript
 var workroom = {
     cfg : {
-        wkrm_acct_id    : 138759,       // the ID of the subaccount where all workrooms should be put
-        term_id         : 5473,         // the ID of the term that all workrooms should be created with (We recommend the 'Forever' term)
+        wkrm_acct_id    : 123456,       // the ID of the subaccount where all workrooms should be put
+        term_id         : 9876,         // the ID of the term that all workrooms should be created with (We recommend the 'Forever' term)
         roles           : ['teacher']   // the roles allowed to create a workroom
     }
 }
