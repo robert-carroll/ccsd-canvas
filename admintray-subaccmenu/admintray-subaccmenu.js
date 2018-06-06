@@ -6,22 +6,25 @@
 (function() {
     var subacctray = {
         cfg: {
-            // this should work for most Canvas instances...
-            // if not, you may have to statically add your root account id
-            root: parseInt(ENV.DOMAIN_ROOT_ACCOUNT_ID.toString().split("0000").pop()),
-            recursive: true,
-            active: true
+            recursive: true, // https://canvas.instructure.com/doc/api/accounts.html#method.accounts.sub_accounts
+            //active: true, // collect only active sub accounts, useless, see line 177
         },
-        // used for search results, result:parent
-        // see documentation for more details
-        skipd: {},
          /* !!!! should be no need to edit below here, unless you're adventurous */
         // the DOM element we are going to look for, and place the menu after, see subacctray.append()
         where: '.tray-with-space-for-global-nav a:contains("All Accounts")',
+        // the root account id of your canvas instance, shouldn't need to set this anymore
+        root: null, //parseInt(ENV.DOMAIN_ROOT_ACCOUNT_ID.toString().split("0000").pop()),
+        instance: location.host+'_subacc_tray', // instance specific localStorage key
         depth: 0, // just a place to track depth during recursion
         stack: [], // the response data from the api, all collected
         tree: [], // the complete recursive tree of the sub account structure
-        html: '' // the final parsed HTML menu string that is held in LocalStorage to save API calls
+        html: '', // the final parsed HTML menu string that is held in LocalStorage to save API calls
+        // set using show_results_parent in admintray-subaccmenu.inc.js
+        skipd: (function() {
+            // get the skipd query string parameter from async script load
+            var qsp = document.currentScript.getAttribute('src').split('?skipd=')
+            return qsp.length==2 ? JSON.parse(decodeURIComponent(qsp[1])) : {}
+        })()
     }
     // converts flat array to recursive tree
     subacctray.list_to_tree = function(data, options) {
@@ -86,7 +89,7 @@
     }
     subacctray.menu = function() {
         // get menu html from local storage
-        subacctray.html = localStorage.getItem('adm_tray_sub_acc_menu')
+        subacctray.html = localStorage.getItem(subacctray.instance)
         // tray menu
         var menu = '<hr><input type="text" id="admin-tray-sam-search" placeholder="Search..." /><ol id="admin-tray-sam-results"></ol>'
                 + subacctray.html
@@ -128,7 +131,7 @@
         // reload
         $('#adm-tray-subacctray a.reload').on('click', function() {
             if (confirm("This will clear and reload the menu, with any sub account changes that have been made.\nDo you want to continue?")) {
-                localStorage.removeItem('adm_tray_sub_acc_menu')
+                localStorage.removeItem(subacctray.instance)
                 subacctray.depth = 0, subacctray.stack = [], subacctray.tree = [], subacctray.html = ''
                 $('li#adm-tray-subacctray').fadeOut('slow', subacctray.init)
                 subacctray.append('<div class="loader"></div>')
@@ -150,9 +153,9 @@
             })
         })
     }
-    subacctray.init = function() {
+    subacctray.init = function() {        
         // if we don't have the sub accounts and menu yet, we need to build and save it
-        if (!localStorage.adm_tray_sub_acc_menu) {
+        if (!localStorage.getItem(subacctray.instance)) {
             var p = 1,
                 pp = 100,
                 fetch = $.Deferred();
@@ -161,7 +164,7 @@
                 $.ajax({
                     method: 'get',
                     dataType: 'json',
-                    url: '/api/v1/accounts/' + subacctray.cfg.root + '/sub_accounts',
+                    url: '/api/v1/accounts/self/sub_accounts',
                     cache: true,
                     data: {
                         'recursive': 'true',
@@ -171,13 +174,16 @@
                 }).done(function(res, status, xhr) {
                     for (var i in res) {
                         // api doesn't seem to be pulling deleted sub accounts... in case that changes, we can skip them
-                        //if(subacctray.cfg.active == true && sa[i].workflow_state == 'deleted') continue;
+                        // if(subacctray.cfg.active == true && sa[i].workflow_state == 'deleted') continue;
                         subacctray.stack.push({
                             'id': parseInt(res[i].id),
                             'parentid': parseInt(res[i].parent_account_id),
                             'name': res[i].name,
                             'children': null
                         })
+                        // get instance root account id from the first response, set it and continue
+                        if(!subacctray.root && !!res[i].root_account_id)
+                            subacctray.root = res[i].root_account_id
                     }
                     // get more until the end
                     // TODO: if the user leaves the page before completion
@@ -211,13 +217,13 @@
                 })
                 // build the html list
                 // TODO opt param: type = list/table, depending on global nav tray or /accounts page
-                var html = subacctray.tree_to_html(subacctray.tree, subacctray.cfg.root)
+                var html = subacctray.tree_to_html(subacctray.tree, subacctray.root)
                 // save html menu to local storage for the user
-                subacctray.html = localStorage.setItem('adm_tray_sub_acc_menu', html)
+                subacctray.html = localStorage.setItem(subacctray.instance, html)
                 subacctray.menu()
             });
-            // we already have it in local storage
-        } else if (localStorage.adm_tray_sub_acc_menu) {
+        // we already have it in local storage
+        } else if (localStorage.getItem(subacctray.instance)) {
             subacctray.menu()
         }
         subacctray.listener()
