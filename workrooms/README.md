@@ -23,7 +23,7 @@ course_id,user_id,role,status
 WKRM-E1234567,E1234567,teacher,active
 ```
 
-### But Why?
+### Removing the Course Button
 We do this because we didn't want to allow everyone to be able to create their own courses throughout Canvas. We disable the `+ Course` button on the /courses page with the following snippet.
 
 ```javascript
