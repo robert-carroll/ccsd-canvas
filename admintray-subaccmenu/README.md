@@ -78,6 +78,8 @@ So if we map the results depth of 4 to it's parent depth at 2 (instead of 3, SIS
 1. George Washington HS > Science
 2. Betsy Ross MS > Science
 
+And both are links to their respective account.
+
 #### Examples
 ```javascript
 // one skip
@@ -91,8 +93,6 @@ show_results_parent = { 4:2, 3:2 }
 // (4:2) George Washington HS > Science
 // (3:2) George Washington HS > SIS Courses
 ```
-
-And both are links to their respective account.
 
 > Note: If you don't define the skip, it will not display a parent
 
