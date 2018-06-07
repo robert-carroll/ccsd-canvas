@@ -193,7 +193,7 @@
         });
     }
     ccsd.util.onPage(/\/courses$/, function() {
-        if (ccsd.util.hasAnyRole(workroom.cfg.roles.join(','))) {
+        if (ccsd.util.hasAnyRole.apply(this, workroom.cfg.roles)) {
             workroom.init();
         }
     });
