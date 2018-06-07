@@ -75,18 +75,27 @@ When we search for **Science** and get multiple sub accounts of 'Science', we ca
 
 So if we map the results depth of 4 to it's parent depth at 2 (instead of 3, SIS Courses) we can get a result like:
 
-```javascript
-show_results_parent = { 4:2 }
-```
-
 1. George Washington HS > Science
 2. Betsy Ross MS > Science
+
+#### Examples
+```javascript
+// one skip
+show_results_parent = { 4:2 }
+// expected result:
+// George Washington HS > Science
+
+// or multiple skips, must be unique
+show_results_parent = { 4:2, 3:2 }
+// expected results:
+// (4:2) George Washington HS > Science
+// (3:2) George Washington HS > SIS Courses
+```
 
 And both are links to their respective account.
 
 > Note: If you don't define the skip, it will not display a parent
 
-> Note: You can add multiple skips, but each depth must be unique
 
 ### Reload
 
