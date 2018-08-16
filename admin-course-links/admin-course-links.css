@@ -1,0 +1,14 @@
+div.rc-course-links ul { 
+    list-style: none;
+    font-size: 0.8rem;
+    margin-left: 0;
+}
+div.rc-course-links ul li {
+    display: inline;
+}
+div.rc-course-links ul li:not(:first-child):before {
+    content: " | ";
+}
+div.rc-course-links ul li a {
+    color: #999;
+}
