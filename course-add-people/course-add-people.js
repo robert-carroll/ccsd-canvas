@@ -28,16 +28,8 @@
                 elemClass: 'peoplesearch__selections',
             }
         }
-        pplModal.getByClass = function(targetClass) {
-            var elems=document.getElementsByTagName('*'), i;
-            for (i in elems) {
-                if (elems[i].className === targetClass) {
-                    return elems[i];
-                }
-            }
-        }
         pplModal.addAlert = function() {
-            var neededElem = pplModal.getByClass(pplModal.cfg.elemClass);
+            var neededElem = document.getElementsByClassName(pplModal.cfg.elemClass)[0];
             var newNode = document.createElement("div");
             newNode.id = pplModal.cfg.newId;
             newNode.className = pplModal.cfg.newClass;
