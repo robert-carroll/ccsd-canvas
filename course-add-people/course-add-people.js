@@ -4,56 +4,37 @@
 // @author      Bruce A. Smith <smithb7@nv.ccsd.net>
 **/
 
+// on the course/users page
+// add alert to the course +people modal
 (function() {
     'use strict';
 
     //ccsd.util.onPage(/^\/courses\/\d+\/users/, function() {
 
     // use this -if- you don't want to include onPage
-    if(/^\/courses\/\d+\/users/.test(window.location.pathname)) {
+	if(/^\/courses\/\d+\/users/.test(window.location.pathname)) {
 
-        var pplModal = {
-            cfg: {
-                // Id of the button that triggers the mutation observer
-                triggerId: 'addUsers',
-                // The id that will be searched for to confirm that the mutation we are looking for has occured
-                mutationId: 'add_people_modal',
-                // Id of the new message added to the people modal
-                newId: 'custom-addPeople-Notice',
-                // Class of the new message
-                newClass: 'alert alert-warning',
-                // The message
-                newText: "Please keep in mind, K-12 students should only be enrolled with the <b>Student</b> role.",
-                // Class of the element that the message will be inserted before.
-                elemClass: 'peoplesearch__selections',
-            }
-        }
-        pplModal.addAlert = function() {
-            var neededElem = document.getElementsByClassName(pplModal.cfg.elemClass)[0];
+        var addAlert = function() {
+            var neededElem = document.getElementsByClassName('peoplesearch__selections')[0];
             var newNode = document.createElement("div");
-            newNode.id = pplModal.cfg.newId;
-            newNode.className = pplModal.cfg.newClass;
-            newNode.innerHTML = pplModal.cfg.newText;
+            newNode.id = 'custom-addPeople-Notice';
+            newNode.className = 'alert alert-warning';
+            newNode.textContent = 'Please keep in mind, K-12 students should only be enrolled with the <b>Student</b> role.';
             neededElem.parentNode.insertBefore(newNode, neededElem);
         }
-        pplModal.startObserver = function() {
-            var detectedModal = false;
-            var mcb = function(mutationsList) {
-                var mutationHTML = '';
-                for(var mutation of mutationsList) {
-                    mutationHTML = mutation.target.innerHTML;
-                    if((mutationHTML).indexOf(pplModal.cfg.mutationId) > 1 ) {
-                        detectedModal = true;
-                        pplModal.addAlert();
-                        break;
-                    }
+
+        var startObserver = function() {
+            var mcb = function() {
+                var findModal = document.getElementById('add_people_modal');
+                if(findModal) {
+                    addAlert();
+                    observer.disconnect();
                 }
-                if (detectedModal === true) { observer.disconnect(); }
             };
         
             var observer = new MutationObserver(mcb);
             observer.observe(document.body, { attributes: true, childList: true, subtree: true });
         }
-        document.getElementById(pplModal.cfg.triggerId).onclick = pplModal.startObserver;
+        document.getElementById('addUsers').onclick = startObserver;
     }//);
 })();
