@@ -25,6 +25,12 @@ li#adm-tray-subacctray a.reload::after {
     float: right;
     content: '\21BB';
 }
+li#adm-tray-subacctray .rc-progress {
+    position: absolute;
+    margin: -4px 0px 0px 45px;
+    color: #333;
+    font-size: 85%;
+}
 li#adm-tray-subacctray .loader {
     border: 8px solid #eee;
     border-top: 8px solid #ccc;

@@ -1,7 +1,11 @@
-/**
-// @name        Admin Tray - Sub Account Navigation for Canvas
-// @namespace   https://github.com//robert-carroll/ccsd-canvas
-**/
+// ==UserScript==
+// @name         Admin Tray - Sub Account Navigation for Canvas, User Script
+// @namespace    https://github.com/robert-carroll/ccsd-canvas
+// @description  adds searchable/recursive directory tree of canvas sub accounts to the global nav admin tray
+// @version      1.1
+// @include      https://*.instructure.com/*
+// @grant        none
+// ==/UserScript==
 
 (function() {
     'use strict';
@@ -20,14 +24,7 @@
         stack: [], // the response data from the api, all collected
         tree: [], // the complete recursive tree of the sub account structure
         html: '', // the final parsed HTML menu string that is held in LocalStorage to save API calls
-        // skip depth for search, set using show_results_parent in admintray-subaccnav.inc.js
-        skipd: (function() {
-            if (document.currentScript && document.currentScript.getAttribute('src').split('?skipd=').length > 0) {
-                // get the skipd query string parameter from async script load
-                var qsp = document.currentScript.getAttribute('src').split('?skipd=');
-                return qsp.length==2 ? JSON.parse(decodeURIComponent(qsp[1])) : {};
-            } else return {};
-        })(),
+        skipd: {}, // skip depth for search, { result:parent }, ex. { 3:2, 5:3 }
         // by default, if the user navigates away from the page, interrupting progress via pagination
         // we'll cache the stack and continue where we left off when the page loads, saving api calls
         stash : function(page = null, stack = null) {
@@ -268,5 +265,31 @@
         // check for mutations on the nav-tray-portal
         subacctray.jj_checkPortal();
     };
+    // for user script
+    function userCSS() {
+        let styles = {
+            'ul#admin-tray-sam, ul#admin-tray-sam ul' : 'margin: 0; padding: 0; list-style: none;',
+            'ul#admin-tray-sam ul' : 'margin-left: 5px; border-left: 1px dotted #ccc; padding-left: 5px;',
+            'ul#admin-tray-sam a.toggle::after' : 'float: right; content: "⬘";',
+            'input#admin-tray-sam-search' : 'width: 95%;',
+            'ol#admin-tray-sam-results' : 'border-bottom: 2px solid #ccc; margin: 0; padding-left: 18px;',
+            'li#adm-tray-subacctray a.reload::after' : 'float: right; content: "↻";',
+            'li#adm-tray-subacctray .rc-progress' : 'position: absolute; margin: -4px 0px 0px 45px; color: #333; font-size: 85%',
+            'li#adm-tray-subacctray .loader' : `border: 8px solid #eee; border-top: 8px solid #ccc; border-radius: 50%;
+                width: 30px; height: 30px; animation: adm-tray-subacctray-load 2s linear infinite;`,
+            '@keyframes adm-tray-subacctray-load' : '0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); }',
+            //'#nav-tray-portal > span > span' : 'width: 415px;'
+        };
+        if (typeof styles !== 'undefined' && Object.keys(styles).length > 0) {
+            let style = document.createElement('style');
+            style.setAttribute('data-adm-subacctray-css', 'here');
+            document.head.appendChild(style);
+            let sheet = style.sheet;
+            Object.keys(styles).forEach(function(key) {
+                sheet.insertRule(`${key} { ${styles[key]} }`, sheet.cssRules.length);
+            });
+        }
+    }
+    userCSS();
     subacctray.init();
 })();
