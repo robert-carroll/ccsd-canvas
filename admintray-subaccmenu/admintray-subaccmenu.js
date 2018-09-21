@@ -14,7 +14,7 @@
         /* !!!! should be no need to edit below here, unless you're adventurous */
         // the DOM element we are going to look for, see subacctray.append()
         where: '.tray-with-space-for-global-nav',
-        root: null, // the root account id of your canvas instance, shouldn't need to set this anymore
+        root: 'self', // use self if you're a root admin, and the sub account id if your not
         instance: location.host+'_subacc_tray', // instance specific localStorage key
         depth: 0, // to track depth during recursion
         stack: [], // the response data from the api, all collected
@@ -205,7 +205,7 @@
                     },
                     method: 'get',
                     dataType: 'json',
-                    url: '/api/v1/accounts/self/sub_accounts',
+                    url: `/api/v1/accounts/${subacctray.root}/sub_accounts`,
                     cache: false,
                     data: {
                         'recursive': subacctray.cfg.recursive,
