@@ -80,7 +80,7 @@ So if we map the results depth of 4 to it's parent depth at 2 (instead of 3, SIS
 
 And both are links to their respective account.
 
-#### Examples
+##### Examples
 ```javascript
 // one skip
 show_results_parent = { 4:2 }
@@ -101,8 +101,10 @@ show_results_parent = { 4:2, 3:2 }
 
 The ↻ button at the bottom right of the menu will clear the menu from localStorage and recompile it for the current Canvas instance. Use this when you or other admins have added or removed sub accounts.
 
+### Interruption Handler
+If API query (and list building) process is interrupted it continues on the next page, with the next pagination request to the API. Once all the pages are collected, the HTML list will be compiled and ready to use.
 
-### User Impact & Include Snippet
+## User Impact & Include Snippet
 
 As mentioned above, CCSD has **5 system admins**, with 40,000 Employees and over 300,000 Students. Be kind to your users, use the snippet below to reduce the impact of your **admin-only** tools. This is included in the repo as **admintray-subaccmenu.inc.js**
 
@@ -120,3 +122,11 @@ if (ccsd.util.hasAnyRole('admin','root_admin')) {
 }
 ```
 
+## User Script
+At the suggestion (and some coaching) by James Jones, I have created a User Script version. This is useful for those admins that can't or don't want to install this script in their Canvas Theme/Global JavaScript. This script is identical to the global JavaScript file, except that the CSS will be added to the DOM by the script and has the various userscript requirements at the top for TamperMonkey.
+
+1) You will need to install and enable the Tampermonkey browser extension
+2) Install the UserScript version of [admintray-subaccmenu.user.js](https://github.com/robert-carroll/ccsd-canvas/blob/master/admintray-subaccmenu/admintray-subaccmenu.user.js)
+
+## Known Issues
+If you are not a root admin of your Canvas Instance, you will need to set (1) sub account in the `root` setting. At this time you cannot add multiple sub accounts. I am planning to fix this.
