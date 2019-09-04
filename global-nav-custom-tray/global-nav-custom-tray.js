@@ -12,11 +12,8 @@
         ///* set tray title, icon, links and footer here *///
         ///*  for user role based conditions see README  *///
         var title = 'Resources',
-            svg = 'https://instructure.github.io/instructure-icons/svg/Line/android/collection_lg.svg',
-            svg_size = {
-                height: '26px',
-                width: '26px'
-            }, // overrides svg settings, uncomment and adjust if needed
+            svg = 'https://hosted.img.cdn/pin-gregor-cresnar.svg',
+            //svg_size = { height: '26px', width: '26px' }, // overrides svg settings, uncomment and adjust if needed
             trayLinks = [{
                     href: 'http://www.example.com/your-library',
                     title: 'Library',
