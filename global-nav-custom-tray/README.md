@@ -14,7 +14,7 @@ This JavaScript will spawn and style (with CSS) DOM elements that mimic the Canv
 
 ## Icon Size
 Use the SVG element's width and height to set the icon size for the navigation tray icon.
-26px is about the default. see [#comment-157915]](https://community.canvaslms.com/thread/23242-global-nav-custom-tray#comment-157915)
+26px is about the default. see [#comment-157915](https://community.canvaslms.com/thread/23242-global-nav-custom-tray#comment-157915)
 
 ## Role Based Conditions
 
