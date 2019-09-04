@@ -47,13 +47,13 @@ $(document).ready(function() {
             // end of close button; begin tray header
             + '<div class="tray-with-space-for-global-nav">'
             + '<div id="custom_'+tidle+'_tray" class="gnct-content-wrap">'
-            + '<h1 class="gcnt-tray-h1">'+ title +'</h1><hr>'
+            + '<h1 class="gcnt-tray-h1">'+ title +'</h1><hr role="presentation"/>'
             // end tray header; begin tray links list
             + '<ul class="gcnt-list">'
             + trayItems;
             // end tray links; if there is a footer, append it
             if(footer.length > 1) {
-                tray += '<li class="gcnt-list-item"><hr></li>'
+                tray += '<li class="gcnt-list-item"><hr role="presentation"/></li>'
                       + '<li class="gcnt-list-item">'+ footer + '</li>';
             }
             // end tray html
@@ -64,7 +64,7 @@ $(document).ready(function() {
         icon = $('<li>', {
             id: 'global_nav_'+tidle+'_menu',
             class: 'ic-app-header__menu-list-item',
-            html: '<a id="global_nav_'+tidle+'_link" href="javascript:void(0)" class="ic-app-header__menu-list-link">'
+            html: '<a id="global_nav_'+tidle+'_link" role="button" href="javascript:void(0)" class="ic-app-header__menu-list-link">'
               + '<div class="menu-item-icon-container" role="presentation"><span class="svg-'+tidle+'-holder"></span></div>'
               + '<div class="menu-item__text">' + title + '</div></a>'
             });
