@@ -1,7 +1,6 @@
 /**
 // @name        Global Nav - Custom Tray
 // @namespace   https://github.com/robert-carroll/ccsd-canvas
-// @author      Robert Carroll <carror@nv.ccsd.net>
 //
 // Pin by [Gregor Cresnar](https://thenounproject.com/grega.cresnar/) from [The Noun Project]
 // https://creativecommons.org/licenses/by/3.0/
