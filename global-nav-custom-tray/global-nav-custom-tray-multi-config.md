@@ -1,5 +1,5 @@
 
-# Config for Global Nav Custom Tray - Multi Instance & SVG Options
+# Global Nav Custom Tray - Multi Instance & SVG Options
 
 This version of the Global Nav Custom Tray supports multiple tray instances and 3 options for choosing icons.
 > The standard tray, will be deprecated at later time.
@@ -17,6 +17,9 @@ There are now 3 options when chosing SVG icons.
 - Inline `<SVG>`
 
 See examples below for icon options.
+
+### Minified Example
+[global-nav-custom-tray-multi.min.js](global-nav-custom-tray-multi.min.js)
 
 ## Instructure UI Icon Set
 Choose available icons from [https://instructure.design/#icons-font](https://instructure.design/#icons-font)
@@ -45,7 +48,7 @@ globalNavCustomTray(InstIconTray);
 
 ```
 
-## Externally hosted svg resource file
+## Externally hosted SVG file
 ```js
 const externalIconTray = {
   title: 'externalIconTray', // the menu item or tray name, what users will see
@@ -107,7 +110,7 @@ Roles can be adjusted as previously featured and documented.
 Simply add the tray config before pushing links and adjusting values.
 
 ```js
-const InstIconTray = {
+const TraybyRole = {
   title: 'InstIconTray', // the menu item or tray name, what users will see
   icon_svg: 'icon-pin',
   trayLinks: [{
@@ -129,13 +132,13 @@ const InstIconTray = {
 }
 // customizing based on roles
 if(['teacher','admin'].some(a => ENV.current_user_roles.includes(a))) {
-    InstIconTray.trayLinks.push({ href: 'http://www.example.com/your-library', title: 'Teacher Library', desc:'Optional text description' })
-    InstIconTray.trayLinks.push({ href: 'http://www.google.com', title: 'Google' })
-    InstIconTray.footer  = 'Teacher/Admin Footer overwrites default';
+    TraybyRole.trayLinks.push({ href: 'http://www.example.com/your-library', title: 'Teacher Library', desc:'Optional text description' })
+    TraybyRole.trayLinks.push({ href: 'http://www.google.com', title: 'Google' })
+    TraybyRole.footer  = 'Teacher/Admin Footer overwrites default';
   } else if (ENV.current_user_roles.indexOf('student') >= 0) {
-    InstIconTray.trayLinks.push({ href: 'http://www.example.com/your-library', title: 'Student Library', desc:'Optional text description' })
-    InstIconTray.trayLinks.push({ href: 'http://www.google.com', title: 'Google' })
-    InstIconTray.footer  = 'Student Footer overwrites default';
+    TraybyRole.trayLinks.push({ href: 'http://www.example.com/your-library', title: 'Student Library', desc:'Optional text description' })
+    TraybyRole.trayLinks.push({ href: 'http://www.google.com', title: 'Google' })
+    TraybyRole.footer  = 'Student Footer overwrites default';
 }
-globalNavCustomTray(inlineIconTray);
+globalNavCustomTray(TraybyRole);
 ```
