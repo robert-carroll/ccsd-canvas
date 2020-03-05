@@ -213,3 +213,18 @@
     font-size: 14px;
     font-weight: 300;
 }
+
+/* for use with instructure icons */
+i.gnct_inst_menu_icon:before {
+    font-size: 26px;
+    width: 26px;
+    line-height: 26px;
+}
+i.gnct_inst_menu_icon {
+    width: 26px;
+    height: 26px;
+}
+/* body.primary-nav-expanded .menu-item__text.custom-menu-item__text {
+    white-space: normal;
+    padding: 0 2px;
+} */
