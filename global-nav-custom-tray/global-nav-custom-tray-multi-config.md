@@ -39,7 +39,7 @@ const InstIconTray = {
     {
       href: 'http://www.example.com/help-desk',
       title: 'Help Desk',
-      desc: 'Optional  text description'
+      desc: 'Optional text description'
     }
   ],
   footer: 'Optional footer text, put whatever you want here, or leave it blank.'
@@ -66,7 +66,7 @@ const externalIconTray = {
     {
       href: 'http://www.example.com/help-desk',
       title: 'Help Desk',
-      desc: 'Optional  text description'
+      desc: 'Optional text description'
     }
   ],
   footer: 'Optional footer text, put whatever you want here, or leave it blank.'
@@ -95,13 +95,12 @@ const inlineIconTray = {
     {
       href: 'http://www.example.com/help-desk',
       title: 'Help Desk',
-      desc: 'Optional  text description'
+      desc: 'Optional text description'
     }
   ],
   footer: 'Optional footer text, put whatever you want here, or leave it blank.'
 }
 globalNavCustomTray(inlineIconTray);
-
 ```
 
 
@@ -125,7 +124,7 @@ const TraybyRole = {
     {
       href: 'http://www.example.com/help-desk',
       title: 'Help Desk',
-      desc: 'Optional  text description'
+      desc: 'Optional text description'
     }
   ],
   footer: 'Optional footer text, put whatever you want here, or leave it blank.'
@@ -134,11 +133,11 @@ const TraybyRole = {
 if(['teacher','admin'].some(a => ENV.current_user_roles.includes(a))) {
     TraybyRole.trayLinks.push({ href: 'http://www.example.com/your-library', title: 'Teacher Library', desc:'Optional text description' })
     TraybyRole.trayLinks.push({ href: 'http://www.google.com', title: 'Google' })
-    TraybyRole.footer  = 'Teacher/Admin Footer overwrites default';
+    TraybyRole.footer = 'Teacher/Admin Footer overwrites default';
   } else if (ENV.current_user_roles.indexOf('student') >= 0) {
     TraybyRole.trayLinks.push({ href: 'http://www.example.com/your-library', title: 'Student Library', desc:'Optional text description' })
     TraybyRole.trayLinks.push({ href: 'http://www.google.com', title: 'Google' })
-    TraybyRole.footer  = 'Student Footer overwrites default';
+    TraybyRole.footer = 'Student Footer overwrites default';
 }
 globalNavCustomTray(TraybyRole);
 ```

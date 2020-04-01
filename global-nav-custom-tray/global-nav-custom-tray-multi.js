@@ -8,7 +8,7 @@
 const globalNavCustomTray = (cfg) => {
 
   ///* options are above for convenience, continue if you like *///
-  const tidle = cfg.title.replace(/\s/, '_').toLowerCase(),
+  const tidle = cfg.title.replace(/\W/g, '_').toLowerCase(),
     trayid = `global_nav_${tidle}_tray`,
     menuItemClass = `ic-app-header__menu-list-item`,
     trayActiveClass = `${menuItemClass}--active`;
