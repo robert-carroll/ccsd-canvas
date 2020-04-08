@@ -55,3 +55,26 @@ const links = [{
   target: '' // _blank opens new window/tab, '' opens in the current window/tab
 }];
 ```
+
+
+## Customizing by Role
+```js
+// customizing based on roles
+const links = [];
+if(['teacher','admin'].some(a => ENV.current_user_roles.includes(a))) {
+    links.push({
+      title: 'Resources', // the menu item or tray name, what users will see
+      icon_svg: 'icon-pin', // can be instructure icon, <svg>, or link to .svg
+      href: 'https://community.canvaslms.com/',
+      target: '' // _blank opens new window/tab, '' opens in the current window/tab
+    });
+  } else if (ENV.current_user_roles.indexOf('student') >= 0) {
+   links.push({
+      title: 'Canvas Community',
+      icon_svg: 'icon-heart',
+      href: 'https://community.canvaslms.com/',
+      target: '_blank'
+    });
+}
+globalNavCustomLinks(links);
+```

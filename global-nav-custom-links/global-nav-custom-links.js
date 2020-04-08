@@ -7,7 +7,8 @@
   'use strict';
 
   // configure links
-  const links = [{
+  const links = [
+    {
       title: 'Instructure Icon',
       icon_svg: 'icon-pin',
       href: 'https://community.canvaslms.com/',
@@ -15,38 +16,22 @@
     },
     {
       title: 'External SVG',
-      icon_svg: 'https://hosted.img.cdn/pin-gregor-cresnar.svg',
+      // example only, host your own, or use icon class
+      icon_svg: 'https://raw.githubusercontent.com/instructure/instructure-ui/master/packages/ui-icons/svg/Line/pin.svg',
       href: 'https://community.canvaslms.com/',
       target: '_blank'
     },
     {
-      title: 'Inline SVG', // the menu item or tray name, what users will see
-      icon_svg: `<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="26px" height="26px" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve">
-      <path fill="#FFFFFF" d="M290.869,15.55c-8.035-8.037-21.064-8.037-29.1,0c-8.036,8.035-8.036,21.064,0,29.101l26.633,26.941  l-97.997,97.688c-46.665-26.121-104.991-18.147-142.934,19.538l-11.928,11.825c-8.036,8.028-8.043,21.049-0.016,29.085  c0.005,0.004,0.011,0.01,0.016,0.016l109.514,109.205L15.697,468.72c-8.036,8.026-8.043,21.049-0.016,29.084  c0.005,0.007,0.01,0.013,0.016,0.018c3.828,3.638,8.91,5.661,14.19,5.655c5.466,0.031,10.721-2.114,14.602-5.964l129.36-129.155  l108.487,108.177c3.887,4.079,9.273,6.383,14.91,6.376c5.443-0.022,10.658-2.203,14.498-6.067l11.928-11.823  c37.637-38.01,45.604-96.326,19.537-143.038l97.998-98.201l26.529,26.53c3.812,4.001,9.076,6.298,14.602,6.375  c11.359,0.01,20.574-9.191,20.582-20.55c0.006-5.488-2.186-10.752-6.082-14.617L290.869,15.55z M297.246,432.833l-218-217.279  c31.259-28.251,79.165-27.077,109,2.674l106.019,105.71C324.141,353.63,325.451,401.547,297.246,432.833z M317.811,288.872  l-94.603-93.885l94.603-94.604l93.988,94.604L317.811,288.872z"/>`, // can be instructure icon, <svg>, or link to .svg
+      title: 'Inline SVG',
+      // example, instructure-ui pin.svg from above
+      icon_svg: `<svg viewBox="0 0 1920 1920" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M1643.272 835.697c-22.024 22.023-57.826 22.023-79.85 0l-20.442-20.442c-.226-.226-.226-.452-.452-.678-.226-.113-.452-.113-.565-.339L1072.806 345.08c-.226-.225-.34-.564-.565-.79-.226-.226-.565-.339-.79-.452l-20.33-20.33c-22.024-22.023-22.024-57.938 0-79.962l83.915-83.802 592.15 592.038-83.914 83.915zm-506.768 305.167c-7.34-8.584-13.44-18.07-21.571-26.09L771.93 771.773c-8.018-8.132-17.506-13.892-26.09-21.12l286.42-286.419 390.437 390.438-286.193 286.193zm-101.42 453.007l-16.49 16.49-742.362-742.25 16.489-16.49c106.73-106.842 292.743-106.842 399.36 0l343.002 343.003c53.309 53.308 82.673 124.235 82.673 199.567 0 75.445-29.364 146.372-82.673 199.68zM1135.035.045L971.272 163.697c-59.295 59.294-62.344 150.776-15.022 216.847L658.876 677.918c-4.066 3.953-6.437 8.81-9.035 13.553-144.565-60.085-322.899-33.656-436.97 80.301l-96.338 96.34 411.106 411.105-511.06 511.059c-22.136 22.023-22.136 57.826 0 79.85 10.956 11.067 25.413 16.602 39.869 16.602s28.913-5.535 39.981-16.603l511.059-511.059 411.106 410.993 96.339-96.339c74.654-74.54 115.764-173.816 115.764-279.529 0-55.115-11.745-108.31-33.091-157.327 2.597-1.92 5.647-3.05 8.018-5.421l300.763-300.763c29.365 20.895 62.456 34.448 96.903 34.448 43.37 0 86.852-16.603 119.83-49.582l163.766-163.764L1135.036.045z" stroke="none" stroke-width="1" fill-rule="evenodd"/></svg>`,
       href: 'https://community.canvaslms.com/',
-      target: '' // _blank opens new window/tab, '' opens in the current window/tab
+      target: ''
     }
   ];
 
   // leave this alone
   const globalNavCustomLinks = (links) => {
-    (function () {
-      if (document.querySelectorAll('[data-global-nav-custom-css="set"]').length == 0) {
-        let styles = {
-          'i.gnct_inst_menu_icon:before': 'font-size: 26px; width: 26px; line-height: 26px;',
-          'i.gnct_inst_menu_icon': 'width: 26px; height: 26px;'
-        };
-        if (typeof styles !== 'undefined' && Object.keys(styles).length > 0) {
-          let style = document.createElement('style');
-          style.setAttribute('data-global-nav-custom-css', 'set');
-          document.head.appendChild(style);
-          let sheet = style.sheet;
-          Object.keys(styles).forEach(function (key) {
-            sheet.insertRule(`${key} { ${styles[key]} }`, sheet.cssRules.length);
-          });
-        }
-      }
-    })();
 
     let gnci_svg = (svg, tidle) => {
       svg.setAttribute('id', `global_nav_${tidle}_svg`);
@@ -96,5 +81,26 @@
       $('#menu').append(icon);
     });
   }
+
+  // handle css, remove or comment if you're also using Global Nav Custom Tray
+  (function () {
+    if (document.querySelectorAll('[data-global-nav-custom-css="set"]').length == 0) {
+      let styles = {
+        'i.gnct_inst_menu_icon:before': 'font-size: 26px; width: 26px; line-height: 26px;',
+        'i.gnct_inst_menu_icon': 'width: 26px; height: 26px;'
+      };
+      if (typeof styles !== 'undefined' && Object.keys(styles).length > 0) {
+        let style = document.createElement('style');
+        style.setAttribute('data-global-nav-custom-css', 'set');
+        document.head.appendChild(style);
+        let sheet = style.sheet;
+        Object.keys(styles).forEach(function (key) {
+          sheet.insertRule(`${key} { ${styles[key]} }`, sheet.cssRules.length);
+        });
+      }
+    }
+  })();
+
+  // add links to menu
   globalNavCustomLinks(links);
 })();
