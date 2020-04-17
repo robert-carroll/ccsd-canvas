@@ -1,5 +1,5 @@
 /**
-// @name        Global Nav - Custom Tray
+// @name        Global Nav - Custom Trays
 // @namespace   https://github.com/robert-carroll/ccsd-canvas
 //
 // Pin by [Gregor Cresnar](https://thenounproject.com/grega.cresnar/) from [The Noun Project]
@@ -80,7 +80,7 @@ const globalNavCustomTray = (cfg) => {
       }
     });
 
-    // inline/script sv
+    // inline/script svg
   } else if (/^<svg/.test(cfg.icon_svg)) {
 
     icon.find(`.svg-${tidle}-holder`).append($(cfg.icon_svg))
