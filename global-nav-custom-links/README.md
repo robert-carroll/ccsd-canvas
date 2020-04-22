@@ -8,7 +8,7 @@ Create multiple Canvas global navigation links with icons
 
 ### SVG Options
 There are now 3 options when chosing SVG icons.
-- Instructure Icons
+- [Instructure Icons](https://instructure.design/#iconography)
 - Externally hosted (CDN) .svg file
 - Inline `<SVG>`
 
