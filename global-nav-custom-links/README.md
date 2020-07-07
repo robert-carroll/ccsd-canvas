@@ -3,6 +3,10 @@
 
 This version of the Global Nav Custom Link supports multiple links and 3 options for choosing icons.
 
+The link will appear at the bottom of the Left Navigation Menu
+
+![](https://ccsd-canvas.s3-us-west-2.amazonaws.com/git-docs/global-nav-custom-links.png) 
+
 ### Multiple Links
 Create multiple Canvas global navigation links with icons
 
@@ -79,6 +83,31 @@ if(['teacher','admin'].some(a => ENV.current_user_roles.includes(a))) {
 globalNavCustomLinks(links);
 ```
 
+## Roles can be tricky though
 
-### The link will appear at the bottom of the Left Navigation Menu
-![](https://ccsd-canvas.s3-us-west-2.amazonaws.com/git-docs/global-nav-custom-links.png) 
+For instance, if you have employees in the student role, maybe for PD, depending on the Sub Account you install this too, employees would see the Student links. 
+Trying using elimination, instead of inclusion, to find users that don't have employee roles.
+
+```js
+// customizing based on roles
+const links = [];
+// if the user is not a teacher, admin, or root_admin; user, student, observer only
+if (!['teacher', 'admin', 'root_admin'].some(a => ENV.current_user_roles.includes(a)))
+  // links for user, student, observer
+  links.push({
+    title: 'Canvas Community',
+    icon_svg: 'icon-heart',
+    href: 'https://community.canvaslms.com/',
+    target: '_blank'
+  });
+} else {
+  // links for teacher, admin, root_admin
+  links.push({
+    title: 'Resources', // the menu item or tray name, what users will see
+    icon_svg: 'icon-pin', // can be instructure icon, <svg>, or link to .svg
+    href: 'https://community.canvaslms.com/',
+    target: '' // _blank opens new window/tab, '' opens in the current window/tab
+  });
+}
+globalNavCustomLinks(links);
+```

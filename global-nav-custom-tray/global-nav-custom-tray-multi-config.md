@@ -2,15 +2,19 @@
 # Global Nav Custom Tray - Multi Instance & SVG Options
 
 This version of the Global Nav Custom Tray supports multiple tray instances and 3 options for choosing icons.
-> The standard tray, will be deprecated at later time.
 
-### Multi Instance
+The link will appear at the bottom of the Left Navigation Menu
+
+![](https://s3-us-west-2.amazonaws.com/ccsd-canvas/git-docs/global-nav-custom-tray.png)
+
+
+## Multi Instance
 Instead of a single instance for a single custom tray, the script can now handle multiple instances or multiple trays by passing `options` to the `globalNavCustomTray()` function. See examples below for creating multiple trays.
 
 You can rename the config variable passed to `globalNavCustomTray()`.
 > example: `const InstIconTray` can be renamed to `const LibraryTray`
 
-### SVG Options
+## SVG Options
 There are now 3 options when chosing SVG icons.
 - Instructure Icons
 - Externally hosted (CDN) .svg file
@@ -18,7 +22,7 @@ There are now 3 options when chosing SVG icons.
 
 See examples below for icon options.
 
-### Minified Example
+## Minified Example
 [global-nav-custom-tray-multi.min.js](global-nav-custom-tray-multi.min.js)
 
 ## Instructure UI Icon Set
@@ -141,3 +145,33 @@ if(['teacher','admin'].some(a => ENV.current_user_roles.includes(a))) {
 }
 globalNavCustomTray(TraybyRole);
 ```
+
+## Roles can be tricky though
+
+For instance, if you have employees in the student role, maybe for PD, depending on the Sub Account you install this too, employees would see the Student links. 
+Trying using elimination, instead of inclusion, to find users that don't have employee roles.
+
+```js
+// customizing based on roles
+// if the user is not a teacher, admin, or root_admin; user, student, observer only
+if (!['teacher', 'admin', 'root_admin'].some(a => ENV.current_user_roles.includes(a)))
+    // links for user, student, observer
+    TraybyRole.trayLinks.push({ href: 'http://www.example.com/your-library', title: 'Student Library', desc:'Optional text description' })
+    TraybyRole.trayLinks.push({ href: 'http://www.google.com', title: 'Google' })
+    TraybyRole.footer = 'Student Footer overwrites default';
+  } else {
+    // links for teacher, admin, root_admin
+    TraybyRole.trayLinks.push({ href: 'http://www.example.com/your-library', title: 'Teacher Library', desc:'Optional text description' })
+    TraybyRole.trayLinks.push({ href: 'http://www.google.com', title: 'Google' })
+    TraybyRole.footer = 'Teacher/Admin Footer overwrites default';
+}
+```
+
+## Credits for the sample navigation tray icon - Pin
+Pin by [Gregor Cresnar](https://thenounproject.com/grega.cresnar/) from [The Noun Project](https://thenounproject.com/)
+
+https://creativecommons.org/licenses/by/3.0/
+
+
+## Canvas Community Discussion
+https://community.canvaslms.com/message/101582-global-nav-custom-tray
