@@ -5,11 +5,15 @@
 // Pin by [Gregor Cresnar](https://thenounproject.com/grega.cresnar/) from [The Noun Project]
 // https://creativecommons.org/licenses/by/3.0/
 **/
+
+// this file is deprecated, left for one last, warning
+
+/*
 (function () {
     'use strict';
     $(document).ready(function () {
-        ///* set tray title, icon, links and footer here *///
-        ///*  for user role based conditions see README  *///
+        // set tray title, icon, links and footer here
+        //  for user role based conditions see README 
         var title = 'Resources',
             svg = 'https://hosted.img.cdn/pin-gregor-cresnar.svg',
             //svg_size = { height: '26px', width: '26px' }, // overrides svg settings, uncomment and adjust if needed
@@ -30,7 +34,7 @@
             ],
             footer = 'Optional footer text, put whatever you want here, or leave it blank.';
 
-        ///* options are above for convenience, continue if you like *///
+        // options are above for convenience, continue if you like
         var tidle = title.replace(/\s/, '_').toLowerCase(),
             trayid = 'global_nav_' + tidle + '_tray',
             trayItems = '',
@@ -145,3 +149,4 @@
         });
     });
 })();
+*/

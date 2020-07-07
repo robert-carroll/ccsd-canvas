@@ -111,3 +111,8 @@ if (!['teacher', 'admin', 'root_admin'].some(a => ENV.current_user_roles.include
 }
 globalNavCustomLinks(links);
 ```
+
+## Credits for the sample navigation tray icon - Pin
+Pin by [Gregor Cresnar](https://thenounproject.com/grega.cresnar/) from [The Noun Project](https://thenounproject.com/)
+
+https://creativecommons.org/licenses/by/3.0/
