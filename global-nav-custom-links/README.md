@@ -78,3 +78,7 @@ if(['teacher','admin'].some(a => ENV.current_user_roles.includes(a))) {
 }
 globalNavCustomLinks(links);
 ```
+
+
+### The link will appear at the bottom of the Left Navigation Menu
+![](https://ccsd-canvas.s3-us-west-2.amazonaws.com/git-docs/global-nav-custom-links.png) 
