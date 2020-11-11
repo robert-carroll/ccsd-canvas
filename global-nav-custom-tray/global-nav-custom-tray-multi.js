@@ -115,7 +115,7 @@ const globalNavCustomTray = (cfg) => {
 	tray.find('.gnct-easing').animate({
       left: '-200px',
       opacity: .8
-    }, 200, 'linear', function () {
+    }, 300, 'linear', function () {
       tray.hide()
     })
   }
@@ -142,7 +142,7 @@ const globalNavCustomTray = (cfg) => {
       tray.find('.gnct-easing').animate({
         left: '0px',
         opacity: 1
-      }, 200, 'linear')
+      }, 300, 'linear')
     }
   });
   // close the tray if the user clicks another nav icon that is not this one
