@@ -102,34 +102,39 @@ const globalNavCustomTray = (cfg) => {
   // please note variable reassignment
   icon = $(`#global_nav_${tidle}_menu`);
   tray = $(`#${trayid}`);
-
+  
+  var prevActiveIcon=null;
   // TODO: there's a delay in switching active icon states, sometimes both are active for a moment
 
   // multiple ways for the tray to get closed, reduce and reuse
   function close_gnct() {
-    menu.find('a').each(function () {
+	menu.find('a').each(function () {
       this.onmouseup = this.blur()
     })
-    tray.find('.gnct-easing').animate({
+    icon.removeClass(trayActiveClass)
+	tray.find('.gnct-easing').animate({
       left: '-200px',
       opacity: .8
     }, 300, 'linear', function () {
       tray.hide()
-      icon.removeClass(trayActiveClass)
     })
   }
   icon.click(function () {
     // if the tray is open, close it
     if ($(this).hasClass(trayActiveClass)) {
-      close_gnct();
+	  prevActiveIcon.addClass(trayActiveClass);
+	  close_gnct();
       // else open the tray
     } else {
-      
+      prevActiveIcon=$(`.${trayActiveClass}`);
       // close all custom trays when opening a tray
       $('.rc-gnct').not(icon).click(function () {
         close_gnct();
       });
-
+	  setTimeout(function () {
+        $(`.${menuItemClass}`).removeClass(trayActiveClass);
+        icon.addClass(trayActiveClass);
+      }, 10)
       menu.find('a').each(function () {
         this.onmouseup = this.blur()
       })
@@ -137,10 +142,7 @@ const globalNavCustomTray = (cfg) => {
       tray.find('.gnct-easing').animate({
         left: '0px',
         opacity: 1
-      }, 300, 'linear', function () {
-        $(`.${menuItemClass}`).removeClass(trayActiveClass);
-        icon.addClass(trayActiveClass);
-      })
+      }, 300, 'linear')
     }
   });
   // close the tray if the user clicks another nav icon that is not this one
@@ -149,6 +151,7 @@ const globalNavCustomTray = (cfg) => {
   });
   // close the tray
   $(`#${trayid}_close`).click(function () {
-    close_gnct();
+    prevActiveIcon.addClass(trayActiveClass);
+	close_gnct();
   });
 }
