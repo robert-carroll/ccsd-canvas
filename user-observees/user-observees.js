@@ -23,7 +23,7 @@
           if (resp.length > 0) {
             $("#ccsd-observees").show(); 
           }
-          else { console.log('hide');
+          else {
             $("#ccsd-observees").hide();
           }
 
