@@ -1,17 +1,15 @@
 
-# Global Nav Custom Tray - Multi Instance & SVG Options
+# Global Nav Custom Tray
 
-This version of the Global Nav Custom Tray supports multiple tray instances and 3 options for choosing icons.
+This version of the Global Nav Custom Tray supports multiple trays and 3 options for choosing icons.
 
 The link will appear at the bottom of the Left Navigation Menu
 
 ![](https://s3-us-west-2.amazonaws.com/ccsd-canvas/git-docs/global-nav-custom-tray.png)
 
-## Multi Instance
-Instead of a single instance for a single custom tray, the script can now handle multiple instances or multiple trays by passing `options` to the `globalNavCustomTray()` function. See examples below for creating multiple trays.
+## Multi Trays
+Can now handle multiple trays by passing tray sets to the `globalNavCustomTray()` function. See examples below for creating multiple trays.
 
-You can rename the config variable passed to `globalNavCustomTray()`.
-> example: `const InstIconTray` can be renamed to `const LibraryTray`
 
 ## SVG Options
 There are now 3 options when chosing SVG icons.
