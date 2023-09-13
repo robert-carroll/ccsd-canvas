@@ -90,29 +90,35 @@
       };
 
       $(document).on('click', '.remove-observee', function(e){
-        e.preventDefault();
-        var id = $(this).attr('data-id');
+        let prompt = "Do you want to remove this observee?";
+        if (confirm(prompt)) {
+          e.preventDefault();
+          var id = $(this).attr('data-id');
 
-        $.ajax({
-          url: `/api/v1/users/${user_id}/observees/${id}`,
-          type: "DELETE"
-        })
-        .then(function(){
-          loadObservees();
-        });
+          $.ajax({
+            url: `/api/v1/users/${user_id}/observees/${id}`,
+            type: "DELETE"
+          })
+          .then(function(){
+            loadObservees();
+          });
+        }
       });
 
       $(document).on('click', '.remove-observer', function(e){
-        e.preventDefault();
-        var id = $(this).attr('data-id');
+        let prompt = "Do you want to remove this observer?";
+        if (confirm(prompt)) {
+          e.preventDefault();
+          var id = $(this).attr('data-id');
 
-        $.ajax({
-          url: `/api/v1/users/${id}/observees/${user_id}`,
-          type: "DELETE"
-        })
-        .then(function(){
-          loadObservers();
-        });
+          $.ajax({
+            url: `/api/v1/users/${id}/observees/${user_id}`,
+            type: "DELETE"
+          })
+          .then(function(){
+            loadObservers();
+          });
+        }
       });
 
       $("#login_information").after(
