@@ -104,7 +104,6 @@ const globalNavCustomTray = (cfg) => {
   tray = $(`#${trayid}`);
   
   var prevActiveIcon=null;
-  // TODO: there's a delay in switching active icon states, sometimes both are active for a moment
 
   // multiple ways for the tray to get closed, reduce and reuse
   function close_gnct() {
