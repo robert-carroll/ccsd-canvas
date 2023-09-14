@@ -46,7 +46,7 @@
         icon = $('<li>', {
           id: `rspv_nav_${tidle}_menu`,
           class: `fOyUs_bGBk jpyTq_bGBk jpyTq_ycrn jpyTq_cYsY`,
-          html: `<a href="/" cursor="pointer" class="fOyUs_bGBk eHiXd_bGBk eHiXd_brAJ eHiXd_doqw eHiXd_eESV eHiXd_cuTS"
+          html: `<a href="${item.href}" target="${item.target}" cursor="pointer" class="fOyUs_bGBk eHiXd_bGBk eHiXd_brAJ eHiXd_doqw eHiXd_eESV eHiXd_cuTS"
           style="margin: 0px; cursor: pointer;"><span class="eHiXd_caGd"><span direction="row" wrap="no-wrap"
               class="fOyUs_bGBk fOyUs_desw bDzpk_bGBk bDzpk_busO bDzpk_fZWR bDzpk_qOas"><span class="fOyUs_bGBk dJCgj_bGBk rspv-svg-${tidle}-holder"
                 style="width: 3rem;"></span><span class="fOyUs_bGBk dJCgj_bGBk"><span wrap="normal" letter-spacing="normal"
