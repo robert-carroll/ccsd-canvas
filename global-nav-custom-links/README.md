@@ -1,11 +1,10 @@
 
 # Global Nav Custom Links
 
-This version of the Global Nav Custom Link supports multiple links and 3 options for choosing icons.
+Allows adding custom icons and links to the Canvas global navigation and responsive global navigation.
 
-The link will appear at the bottom of the Left Navigation Menu
-
-![](https://ccsd-canvas.s3-us-west-2.amazonaws.com/git-docs/global-nav-custom-links.png) 
+![](https://ccsd-canvas.s3-us-west-2.amazonaws.com/git-docs/global-nav-custom-links.png)
+![](https://ccsd-canvas.s3-us-west-2.amazonaws.com/git-docs/global-nav-custom-links-resp.png) 
 
 ### Multiple Links
 Create multiple Canvas global navigation links with icons
