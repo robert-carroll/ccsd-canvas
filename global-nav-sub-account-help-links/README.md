@@ -50,3 +50,7 @@ if (ENV.current_user_roles.indexOf('student') >= 0) {
 ```
 
 
+## Credits
+Based on ideas presented here
+
+https://community.canvaslms.com/t5/Idea-Conversations/Different-Help-Options-for-Different-Sub-Accounts/idi-p/494882
