@@ -26,16 +26,20 @@ const links = [{
       title: 'Resources', // the menu item or tray name, what users will see
       icon_svg: 'icon-pin', // can be instructure icon, <svg>, or link to .svg
       href: 'https://community.canvaslms.com/',
-      target: '' // _blank opens new window/tab, '' opens in the current window/tab
+      target: '', // _blank opens new window/tab, '' opens in the current window/tab
+      position: 1 // can be one of : integer (position after first), 'after' (help or last), 'before' (help or last)
     },
     {
       title: 'Canvas Community',
       icon_svg: 'icon-heart',
       href: 'https://community.canvaslms.com/',
-      target: '_blank'
+      target: '_blank',
+      position: 'after'
     },
   ];
 ```
+> The icon position by default will be before Help or the last item when undefined, or 'before'
+
 
 ## Externally hosted SVG file
 ```js

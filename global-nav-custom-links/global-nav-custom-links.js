@@ -11,31 +11,36 @@
       title: 'Instructure Icon',
       icon_svg: 'icon-pin',
       href: 'https://community.canvaslms.com/',
-      target: '_blank'
+      target: '_blank',
+      position: 1 // can be one of : integer (position after first), 'after' (help or last), 'before' (help or last)
     },
     {
       title: 'External Icon',
       // example only, host your own, or use icon class
       icon_svg: 'https://raw.githubusercontent.com/instructure/instructure-ui/master/packages/ui-icons/svg/Line/pin.svg',
       href: 'https://community.canvaslms.com/',
-      target: '_blank'
+      target: '_blank',
+      // position: 'before' // default
     },
     {
       title: 'Inline Icon',
       // example, instructure-ui pin.svg from above
       icon_svg: `<svg viewBox="0 0 1920 1920" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M1643.272 835.697c-22.024 22.023-57.826 22.023-79.85 0l-20.442-20.442c-.226-.226-.226-.452-.452-.678-.226-.113-.452-.113-.565-.339L1072.806 345.08c-.226-.225-.34-.564-.565-.79-.226-.226-.565-.339-.79-.452l-20.33-20.33c-22.024-22.023-22.024-57.938 0-79.962l83.915-83.802 592.15 592.038-83.914 83.915zm-506.768 305.167c-7.34-8.584-13.44-18.07-21.571-26.09L771.93 771.773c-8.018-8.132-17.506-13.892-26.09-21.12l286.42-286.419 390.437 390.438-286.193 286.193zm-101.42 453.007l-16.49 16.49-742.362-742.25 16.489-16.49c106.73-106.842 292.743-106.842 399.36 0l343.002 343.003c53.309 53.308 82.673 124.235 82.673 199.567 0 75.445-29.364 146.372-82.673 199.68zM1135.035.045L971.272 163.697c-59.295 59.294-62.344 150.776-15.022 216.847L658.876 677.918c-4.066 3.953-6.437 8.81-9.035 13.553-144.565-60.085-322.899-33.656-436.97 80.301l-96.338 96.34 411.106 411.105-511.06 511.059c-22.136 22.023-22.136 57.826 0 79.85 10.956 11.067 25.413 16.602 39.869 16.602s28.913-5.535 39.981-16.603l511.059-511.059 411.106 410.993 96.339-96.339c74.654-74.54 115.764-173.816 115.764-279.529 0-55.115-11.745-108.31-33.091-157.327 2.597-1.92 5.647-3.05 8.018-5.421l300.763-300.763c29.365 20.895 62.456 34.448 96.903 34.448 43.37 0 86.852-16.603 119.83-49.582l163.766-163.764L1135.036.045z" stroke="none" stroke-width="1" fill-rule="evenodd"/></svg>`,
       href: 'https://community.canvaslms.com/',
-      target: ''
-    }
+      target: '',
+      position: 'after'
+    },
   ];
 
   // leave this alone
   const globalNavCustomLinks = () => {
 
+    const hamb_menu_sel = 'div[role="dialog"][aria-label="Global Navigation"] ul';
     const nav_item_append = (item, hamb = true) => {
-      var tidle = item.title.replace(/\W/g, '_').toLowerCase();
+      const tidle = item.title.replace(/\W/g, '_').toLowerCase();
       const holder = hamb ? `.rspv-svg-${tidle}-holder` : `.svg-${tidle}-holder`;
-      var icon;
+      var icon,
+        svg_class = 'ic-icon-svg menu-item__icon ic-icon-svg--apps svg-icon-help ic-icon-svg-custom-tray gnct_icon_svg';
 
       // handle menu icon
       if (hamb == true) {
@@ -61,7 +66,7 @@
               <div class="menu-item__text">${item.title}</div></a>`
         });
       }
-
+      
       // instructure icon
       if (/^icon-[a-z]/.test(item.icon_svg) == true) {
 
@@ -81,7 +86,7 @@
           if (hamb == true) {
             svg.setAttribute('class', 'dUOHu_bGBk dUOHu_cRbP cGqzL_bGBk cGqzL_VCXp dUOHu_drOs')
           } else {
-            svg.setAttribute('class', 'ic-icon-svg menu-item__icon ic-icon-svg--apps svg-icon-help ic-icon-svg-custom-tray gnct_icon_svg');
+            svg.setAttribute('class', svg_class);
           }
         });
         // inline/script svg
@@ -94,14 +99,17 @@
         if (hamb == true) {
           svg.setAttribute('class', 'dUOHu_bGBk dUOHu_cRbP cGqzL_bGBk cGqzL_VCXp dUOHu_cVUo')
         } else {
-          svg.setAttribute('class', 'ic-icon-svg menu-item__icon ic-icon-svg--apps svg-icon-help ic-icon-svg-custom-tray gnct_icon_svg');
+          svg.setAttribute('class', svg_class);
         }
       }
 
-      if (hamb == true) {
-        $('div[role="dialog"][aria-label="Global Navigation"] ul').append(icon);
+      if(item.position !== undefined && typeof item.position == 'number') {
+        var sel = (hamb == true ? hamb_menu_sel  : '#menu') + ` > li:nth-of-type(${item.position})`;
+        $(sel).after(icon);
+      } else if (item.position !== undefined && item.position == 'after') {
+        $(hamb ? hamb_menu_sel  : '#menu').append(icon);
       } else {
-        $('#menu').append(icon);
+        $(`${hamb ? hamb_menu_sel  : '#menu'} li:last`).before(icon);
       }
     }
     const append_links = (links, hamb = true) => {
@@ -110,7 +118,7 @@
       });
     }
     const observeHamburger = function (mtx, observer) {
-      let rspv_nav = document.querySelector('div[role="dialog"][aria-label="Global Navigation"] ul');
+      let rspv_nav = document.querySelector(hamb_menu_sel);
       if (!rspv_nav) {
         if (typeof observer === 'undefined') {
           var obs = new MutationObserver(observeHamburger);
@@ -130,7 +138,7 @@
     }
 
     const exitRspvNav = function (mtx, observer) {
-      let rspv_nav = document.querySelector('div[role="dialog"][aria-label="Global Navigation"] ul');
+      let rspv_nav = document.querySelector(hamb_menu_sel);
       if (rspv_nav != null) {
         if (typeof observer === 'undefined') {
           var obs = new MutationObserver(exitRspvNav);
