@@ -44,18 +44,15 @@
 
       // handle menu icon
       if (hamb == true) {
-        // ok so some might argue about the react class usage here
-        // but I copied these in spring of 2020
-        // I made 1 change to the below classes for release... let's roll with it for now
-        // far cheaper than copying all that computed css out of canvas and back into your themes
+        // what came first, the hack or the update?
         icon = $('<li>', {
           id: `rspv_nav_${tidle}_menu`,
-          class: `fOyUs_bGBk jpyTq_bGBk jpyTq_ycrn jpyTq_cYsY`,
-          html: `<a href="${item.href}" target="${item.target}" cursor="pointer" class="fOyUs_bGBk eHiXd_bGBk eHiXd_brAJ eHiXd_doqw eHiXd_eESV eHiXd_cuTS"
-          style="margin: 0px; cursor: pointer;"><span class="eHiXd_caGd"><span direction="row" wrap="no-wrap"
-              class="fOyUs_bGBk fOyUs_desw bDzpk_bGBk bDzpk_busO bDzpk_fZWR bDzpk_qOas"><span class="fOyUs_bGBk dJCgj_bGBk rspv-svg-${tidle}-holder"
-                style="width: 3rem;"></span><span class="fOyUs_bGBk dJCgj_bGBk"><span wrap="normal" letter-spacing="normal"
-                  class="enRcg_bGBk enRcg_ycrn enRcg_eQnG">${item.title}</span></span></span></span></a></li>`
+          class: `css-1gf9dsr-view-listItem`,
+          html: `<a dir="ltr" href="${item.href}" target="${item.target}" class="css-v4who6-view--block-link">
+          <span dir="ltr" direction="row" wrap="no-wrap" class="css-hgluk0-view--flex-flex">
+          <span dir="ltr" class="css-1konsg9-view-flexItem rspv-svg-${tidle}-holder"></span>
+          <span dir="ltr" class="css-b0a2m7-view-flexItem"><span wrap="normal" letter-spacing="normal" class="css-1vfp3rz-text">${item.title}</span>
+          </span></span></a>`
         });
       } else {
         icon = $('<li>', {
@@ -84,7 +81,7 @@
           let svg = $(this).find('svg')[0];
           svg.setAttribute('id', `global_nav_${tidle}_svg`);
           if (hamb == true) {
-            svg.setAttribute('class', 'dUOHu_bGBk dUOHu_cRbP cGqzL_bGBk cGqzL_VCXp dUOHu_drOs')
+            svg.setAttribute('class', 'css-1216v6a-inlineSVG-svgIcon')
           } else {
             svg.setAttribute('class', svg_class);
           }
@@ -97,7 +94,7 @@
         svg.setAttribute('id', `global_nav_${tidle}_svg`);
 
         if (hamb == true) {
-          svg.setAttribute('class', 'dUOHu_bGBk dUOHu_cRbP cGqzL_bGBk cGqzL_VCXp dUOHu_cVUo')
+          svg.setAttribute('class', 'css-1216v6a-inlineSVG-svgIcon')
         } else {
           svg.setAttribute('class', svg_class);
         }
