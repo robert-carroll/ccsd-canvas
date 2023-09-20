@@ -50,6 +50,7 @@
         resp_icon.querySelector('a').href = item.href;
         resp_icon.querySelector('span[class$="text"]').textContent = item.title;
         var svg_holder = resp_icon.querySelector(`.rspv-svg-${tidle}-holder`);
+        var svg_class = resp_icon.querySelector('svg').classList.value;
         resp_icon.querySelector('svg').remove();
         if (item.target !== undefined && item.target.includes('_blank', '_self', '_parent')) {
           resp_icon.querySelector('a').setAttribute('target', item.target);
@@ -97,7 +98,7 @@
             .then(svg => {
               svg_holder.insertAdjacentHTML('afterbegin', svg);
               resp_icon.querySelector('svg').setAttribute('id', `resp-global_nav_${tidle}_svg`);
-              resp_icon.querySelector('svg').classList.add('css-1216v6a-inlineSVG-svgIcon');
+              resp_icon.querySelector('svg').classList.add(svg_class);
             })
             .catch(console.error.bind(console));
 
@@ -115,7 +116,7 @@
         if (hamb == true) {
           svg_holder.insertAdjacentHTML('afterbegin', item.icon_svg);
           resp_icon.querySelector('svg').setAttribute('id', `resp-global_nav_${tidle}_svg`);
-          resp_icon.querySelector('svg').classList.add('css-1216v6a-inlineSVG-svgIcon');
+          resp_icon.querySelector('svg').classList.add(svg_class);
 
         } else {
           icon.find(`.svg-${tidle}-holder`).append($(item.icon_svg))
