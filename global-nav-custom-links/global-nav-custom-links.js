@@ -36,6 +36,8 @@
   const globalNavCustomLinks = () => {
     const global_nav_sel = '#menu';
     const hamb_menu_sel = 'div[role="dialog"][aria-label="Global Navigation"] ul';
+    if (!document.querySelector(global_nav_sel) && !document.querySelector(hamb_menu_sel)) return;
+
     const nav_item_append = (item, hamb = true) => {
       const tidle = item.title.replace(/\W/g, '_').toLowerCase();
 
@@ -64,12 +66,13 @@
 
       // prepare for svg
       const svg_holder = icon.querySelector((hamb ? '.rspv-svg' : '.svg') + `-${tidle}-holder`);
+      var svg_class;
       if (hamb == true) {
-        var svg_class = icon.querySelector('svg').classList;
+        svg_class = icon.querySelector('svg').classList;
       } else {
         icon.classList.remove('ic-app-header__menu-list-item--active');
         //var svg_class = icon.querySelector('svg').classList;
-        var svg_class = ['ic-icon-svg', 'menu-item__icon', 'ic-icon-svg--apps', 'ic-icon-svg-custom-tray', 'gnct_icon_svg'];
+        svg_class = ['ic-icon-svg', 'menu-item__icon', 'ic-icon-svg--apps', 'ic-icon-svg-custom-tray', 'gnct_icon_svg'];
       }
       // remove cloned svg
       icon.querySelector('svg').remove();
