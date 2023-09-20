@@ -20,7 +20,7 @@
       icon_svg: 'https://raw.githubusercontent.com/instructure/instructure-ui/master/packages/ui-icons/svg/Line/pin.svg',
       href: 'https://community.canvaslms.com/',
       target: '_blank',
-      // position: 'before' // default
+      //position: 'before' // default
     },
     {
       title: 'Inline Icon',
@@ -38,24 +38,25 @@
     const hamb_menu_sel = 'div[role="dialog"][aria-label="Global Navigation"] ul';
     const nav_item_append = (item, hamb = true) => {
       const tidle = item.title.replace(/\W/g, '_').toLowerCase();
-      const holder = hamb ? `.rspv-svg-${tidle}-holder` : `.svg-${tidle}-holder`;
-      var icon,
-        svg_class = 'ic-icon-svg menu-item__icon ic-icon-svg--apps svg-icon-help ic-icon-svg-custom-tray gnct_icon_svg';
 
       // handle menu icon
       if (hamb == true) {
-        // what came first, the hack or the update?
-        icon = $('<li>', {
-          id: `rspv_nav_${tidle}_menu`,
-          class: `css-1gf9dsr-view-listItem`,
-          html: `<a dir="ltr" href="${item.href}" target="${item.target}" class="css-v4who6-view--block-link">
-          <span dir="ltr" direction="row" wrap="no-wrap" class="css-hgluk0-view--flex-flex">
-          <span dir="ltr" class="css-1konsg9-view-flexItem rspv-svg-${tidle}-holder"></span>
-          <span dir="ltr" class="css-b0a2m7-view-flexItem"><span wrap="normal" letter-spacing="normal" class="css-1vfp3rz-text">${item.title}</span>
-          </span></span></a>`
-        });
+
+        const dash_icon_li = document.querySelector(`div[role="dialog"][aria-label="Global Navigation"] ul svg[name="IconDashboard"]`).closest('li');
+        var target_li = document.querySelector(`div[role="dialog"][aria-label="Global Navigation"] ul li:last-child`);
+        var resp_icon = dash_icon_li.cloneNode(true);
+        resp_icon.setAttribute('id', `resp-global_nav_${tidle}_link`);
+        resp_icon.querySelector('svg').parentElement.classList.add(`rspv-svg-${tidle}-holder`);
+        resp_icon.querySelector('a').href = item.href;
+        resp_icon.querySelector('span[class$="text"]').textContent = item.title;
+        var svg_holder = resp_icon.querySelector(`.rspv-svg-${tidle}-holder`);
+        resp_icon.querySelector('svg').remove();
+        if (item.target !== undefined && item.target.includes('_blank', '_self', '_parent')) {
+          resp_icon.querySelector('a').setAttribute('target', item.target);
+        }
       } else {
-        icon = $('<li>', {
+
+        var icon = $('<li>', {
           id: `global_nav_${tidle}_link`,
           class: `menu-item ic-app-header__menu-list-item`,
           html: `<a id="global_nav_${tidle}_link" role="button" href="${item.href}" target="${item.target}" class="ic-app-header__menu-list-link">
@@ -63,62 +64,102 @@
               <div class="menu-item__text">${item.title}</div></a>`
         });
       }
-      
+
       // instructure icon
       if (/^icon-[a-z]/.test(item.icon_svg) == true) {
 
-        icon.find(holder).append($('<div>', {
-          id: hamb ? `rspv_nav_${tidle}_svg` : `global_nav_${tidle}_svg`,
-          class: hamb ? '' : 'menu-item-icon-container',
-          html: `<i class="icon-line ${item.icon_svg} gnct_inst_menu_icon"></i></div>`,
-          role: 'presentation'
-        }));
+        if (hamb == true) {
+          svg_holder.insertAdjacentHTML('afterbegin', `<div id="resp-global_nav_${tidle}_svg" role="presentation"><i class="icon-line ${item.icon_svg} gnct_inst_menu_icon"></i></div>`)
+
+        } else {
+          icon.find(`.svg-${tidle}-holder`).append($('<div>', {
+            id: `global_nav_${tidle}_svg`,
+            class: 'menu-item-icon-container',
+            html: `<i class="icon-line ${item.icon_svg} gnct_inst_menu_icon"></i></div>`,
+            role: 'presentation'
+          }));
+        }
 
         // externally hosted svg
       } else if (/^http/.test(item.icon_svg)) {
+        if (hamb == true) {
+          // fetch hosted svg, you must handle cors policies locally
+          fetch(item.icon_svg, {
+              mode: 'cors',
+              method: 'GET',
+              headers: {
+                'Access-Control-Request-Method': 'GET',
+                'Accept': 'text/plain',
+                'Content-Type': 'text/plain',
+              }
+            })
+            .then(r => r.text())
+            .then(svg => {
+              svg_holder.insertAdjacentHTML('afterbegin', svg);
+              resp_icon.querySelector('svg').setAttribute('id', `resp-global_nav_${tidle}_svg`);
+              resp_icon.querySelector('svg').classList.add('css-1216v6a-inlineSVG-svgIcon');
+            })
+            .catch(console.error.bind(console));
 
-        icon.find(holder).load(item.icon_svg, function () {
-          let svg = $(this).find('svg')[0];
-          svg.setAttribute('id', `global_nav_${tidle}_svg`);
-          if (hamb == true) {
-            svg.setAttribute('class', 'css-1216v6a-inlineSVG-svgIcon')
-          } else {
-            svg.setAttribute('class', svg_class);
-          }
-        });
+        } else {
+          icon.find(`.svg-${tidle}-holder`).load(item.icon_svg, function () {
+            let svg = $(this).find('svg')[0];
+            svg.setAttribute('id', `global_nav_${tidle}_svg`);
+            svg.setAttribute('class', 'ic-icon-svg menu-item__icon ic-icon-svg--apps svg-icon-help ic-icon-svg-custom-tray gnct_icon_svg');
+          });
+        }
+
         // inline/script svg
       } else if (/^<svg/.test(item.icon_svg)) {
 
-        icon.find(holder).append($(item.icon_svg))
-        let svg = icon.find(holder).find('svg')[0];
-        svg.setAttribute('id', `global_nav_${tidle}_svg`);
-
         if (hamb == true) {
-          svg.setAttribute('class', 'css-1216v6a-inlineSVG-svgIcon')
+          svg_holder.insertAdjacentHTML('afterbegin', item.icon_svg);
+          resp_icon.querySelector('svg').setAttribute('id', `resp-global_nav_${tidle}_svg`);
+          resp_icon.querySelector('svg').classList.add('css-1216v6a-inlineSVG-svgIcon');
+
         } else {
-          svg.setAttribute('class', svg_class);
+          icon.find(`.svg-${tidle}-holder`).append($(item.icon_svg))
+          let svg = icon.find(`.svg-${tidle}-holder`).find('svg')[0];
+          svg.setAttribute('id', `global_nav_${tidle}_svg`);
+          svg.setAttribute('class', 'ic-icon-svg menu-item__icon ic-icon-svg--apps svg-icon-help ic-icon-svg-custom-tray gnct_icon_svg');
         }
       }
 
-      if(item.position !== undefined && typeof item.position == 'number') {
-        var sel = (hamb == true ? hamb_menu_sel  : '#menu') + ` > li:nth-of-type(${item.position})`;
-        $(sel).after(icon);
+      // positioned
+      if (item.position !== undefined && typeof item.position === 'number') {
+        var sel = (hamb == true ? hamb_menu_sel : '#menu') + ` > li:nth-of-type(${item.position})`;
+
+        if (hamb == true) {
+          document.querySelector(sel).after(resp_icon);
+        } else {
+          $(sel).after(icon);
+        }
+        // after
       } else if (item.position !== undefined && item.position == 'after') {
-        $(hamb ? hamb_menu_sel  : '#menu').append(icon);
+        if (hamb == true) {
+          target_li.after(resp_icon);
+        } else {
+          $('#menu').append(icon);
+        }
+        // before
       } else {
-        $(`${hamb ? hamb_menu_sel  : '#menu'} li:last`).before(icon);
+        if (hamb == true) {
+          target_li.before(resp_icon)
+        } else {
+          $('#menu li:last').before(icon);
+        }
       }
     }
     const append_links = (links, hamb = true) => {
       links.forEach(link => {
-        nav_item_append(link, hamb)
+        nav_item_append(link, hamb);
       });
     }
-    const observeHamburger = function (mtx, observer) {
+    const watch_burger_tray = function (mtx, observer) {
       let rspv_nav = document.querySelector(hamb_menu_sel);
       if (!rspv_nav) {
         if (typeof observer === 'undefined') {
-          var obs = new MutationObserver(observeHamburger);
+          var obs = new MutationObserver(watch_burger_tray);
           obs.observe(document.body, {
             childList: true,
             subtree: true
@@ -130,15 +171,15 @@
       if (rspv_nav != null) {
         observer.disconnect();
         append_links(links, true);
-        exitRspvNav();
+        exit_burger_tray();
       }
     }
 
-    const exitRspvNav = function (mtx, observer) {
+    const exit_burger_tray = function (mtx, observer) {
       let rspv_nav = document.querySelector(hamb_menu_sel);
       if (rspv_nav != null) {
         if (typeof observer === 'undefined') {
-          var obs = new MutationObserver(exitRspvNav);
+          var obs = new MutationObserver(exit_burger_tray);
           obs.observe(document.body, {
             childList: true,
             subtree: true
@@ -148,10 +189,10 @@
       }
       if (rspv_nav == null) {
         observer.disconnect();
-        observeHamburger();
+        watch_burger_tray();
       }
     }
-    observeHamburger();
+    watch_burger_tray();
     append_links(links, false);
   }
 
