@@ -41,114 +41,88 @@
 
       // handle menu icon
       if (hamb == true) {
-
+        // clone and create a responsive nav icon
         const dash_icon_li = document.querySelector(`div[role="dialog"][aria-label="Global Navigation"] ul svg[name="IconDashboard"]`).closest('li');
         var target_li = document.querySelector(`div[role="dialog"][aria-label="Global Navigation"] ul li:last-child`);
         var resp_icon = dash_icon_li.cloneNode(true);
-        resp_icon.setAttribute('id', `resp-global_nav_${tidle}_link`);
+        resp_icon.setAttribute('id', `resp-global_nav_${tidle}_link-item`);
         resp_icon.querySelector('svg').parentElement.classList.add(`rspv-svg-${tidle}-holder`);
+        resp_icon.querySelector('a').setAttribute('id', `resp-global_nav_${tidle}_link`);
         resp_icon.querySelector('a').href = item.href;
         resp_icon.querySelector('span[class$="text"]').textContent = item.title;
         var svg_holder = resp_icon.querySelector(`.rspv-svg-${tidle}-holder`);
-        var svg_class = resp_icon.querySelector('svg').classList.value;
+        var svg_class = resp_icon.querySelector('svg').classList;
         resp_icon.querySelector('svg').remove();
         if (item.target !== undefined && item.target.includes('_blank', '_self', '_parent')) {
           resp_icon.querySelector('a').setAttribute('target', item.target);
         }
       } else {
-
-        var icon = $('<li>', {
-          id: `global_nav_${tidle}_link`,
-          class: `menu-item ic-app-header__menu-list-item`,
-          html: `<a id="global_nav_${tidle}_link" role="button" href="${item.href}" target="${item.target}" class="ic-app-header__menu-list-link">
-              <div class="menu-item-icon-container" role="presentation"><span class="svg-${tidle}-holder"></span></div>
-              <div class="menu-item__text">${item.title}</div></a>`
-        });
+        // clone and create a global nav icon
+        const global_nav_icon_li = document.querySelector(`#global_nav_dashboard_link`).closest('li');
+        var target_li = document.querySelector(`#menu li:last-child`);
+        var nav_icon = global_nav_icon_li.cloneNode(true);
+        nav_icon.classList.remove('ic-app-header__menu-list-item--active');
+        nav_icon.setAttribute('id', `global_nav_${tidle}_link-item`);
+        nav_icon.querySelector('svg').parentElement.classList.add(`svg-${tidle}-holder`);
+        nav_icon.querySelector('a').setAttribute('id', `global_nav_${tidle}_link`);
+        nav_icon.querySelector('a').href = item.href;
+        nav_icon.querySelector('.menu-item__text').textContent = item.title;
+        var svg_holder = nav_icon.querySelector(`.svg-${tidle}-holder`);
+        //var svg_class = nav_icon.querySelector('svg').classList;
+        var svg_class = ['ic-icon-svg', 'menu-item__icon', 'ic-icon-svg--apps', 'ic-icon-svg-custom-tray', 'gnct_icon_svg'];
+        nav_icon.querySelector('svg').remove();
+        if (item.target !== undefined && item.target.includes('_blank', '_self', '_parent')) {
+          nav_icon.querySelector('a').setAttribute('target', item.target);
+        }
       }
 
-      // instructure icon
+
       if (/^icon-[a-z]/.test(item.icon_svg) == true) {
+        // instructure icon
+        svg_holder.insertAdjacentHTML('afterbegin', `<div id="${(hamb ? 'resp-' : '') + `global_nav_${tidle}_svg`}" role="presentation"><i class="icon-line ${item.icon_svg} gnct_inst_menu_icon"></i></div>`);
 
-        if (hamb == true) {
-          svg_holder.insertAdjacentHTML('afterbegin', `<div id="resp-global_nav_${tidle}_svg" role="presentation"><i class="icon-line ${item.icon_svg} gnct_inst_menu_icon"></i></div>`)
-
-        } else {
-          icon.find(`.svg-${tidle}-holder`).append($('<div>', {
-            id: `global_nav_${tidle}_svg`,
-            class: 'menu-item-icon-container',
-            html: `<i class="icon-line ${item.icon_svg} gnct_inst_menu_icon"></i></div>`,
-            role: 'presentation'
-          }));
-        }
-
-        // externally hosted svg
       } else if (/^http/.test(item.icon_svg)) {
-        if (hamb == true) {
-          // fetch hosted svg, you must handle cors policies locally
-          fetch(item.icon_svg, {
-              mode: 'cors',
-              method: 'GET',
-              headers: {
-                'Access-Control-Request-Method': 'GET',
-                'Accept': 'text/plain',
-                'Content-Type': 'text/plain',
-              }
+        // fetch externally hosted svg, you must handle cors policies locally
+        fetch(item.icon_svg, {
+            mode: 'cors',
+            method: 'GET',
+            headers: {
+              'Access-Control-Request-Method': 'GET',
+              'Accept': 'text/plain',
+              'Content-Type': 'text/plain',
+            }
+          })
+          .then(r => r.text())
+          .then(svg => {
+            let icon = hamb ? resp_icon : nav_icon;
+            svg_holder.insertAdjacentHTML('afterbegin', svg);
+            icon.querySelector('svg').setAttribute('id', (hamb ? 'resp-' : '') + `global_nav_${tidle}_svg`);
+            svg_class.forEach(c => {
+              icon.querySelector('svg').classList.add(c)
             })
-            .then(r => r.text())
-            .then(svg => {
-              svg_holder.insertAdjacentHTML('afterbegin', svg);
-              resp_icon.querySelector('svg').setAttribute('id', `resp-global_nav_${tidle}_svg`);
-              resp_icon.querySelector('svg').classList.add(svg_class);
-            })
-            .catch(console.error.bind(console));
+          })
+          .catch(console.error.bind(console));
 
-        } else {
-          icon.find(`.svg-${tidle}-holder`).load(item.icon_svg, function () {
-            let svg = $(this).find('svg')[0];
-            svg.setAttribute('id', `global_nav_${tidle}_svg`);
-            svg.setAttribute('class', 'ic-icon-svg menu-item__icon ic-icon-svg--apps svg-icon-help ic-icon-svg-custom-tray gnct_icon_svg');
-          });
-        }
-
-        // inline/script svg
       } else if (/^<svg/.test(item.icon_svg)) {
-
-        if (hamb == true) {
-          svg_holder.insertAdjacentHTML('afterbegin', item.icon_svg);
-          resp_icon.querySelector('svg').setAttribute('id', `resp-global_nav_${tidle}_svg`);
-          resp_icon.querySelector('svg').classList.add(svg_class);
-
-        } else {
-          icon.find(`.svg-${tidle}-holder`).append($(item.icon_svg))
-          let svg = icon.find(`.svg-${tidle}-holder`).find('svg')[0];
-          svg.setAttribute('id', `global_nav_${tidle}_svg`);
-          svg.setAttribute('class', 'ic-icon-svg menu-item__icon ic-icon-svg--apps svg-icon-help ic-icon-svg-custom-tray gnct_icon_svg');
-        }
+        // inline/script svg
+        let icon = hamb ? resp_icon : nav_icon;
+        svg_holder.insertAdjacentHTML('afterbegin', item.icon_svg);
+        icon.querySelector('svg').setAttribute('id', `resp-global_nav_${tidle}_svg`);
+        svg_class.forEach(c => {
+          icon.querySelector('svg').classList.add(c)
+        })
       }
-
-      // positioned
+      // nav item placement
       if (item.position !== undefined && typeof item.position === 'number') {
+        // positioned
         var sel = (hamb == true ? hamb_menu_sel : '#menu') + ` > li:nth-of-type(${item.position})`;
-
-        if (hamb == true) {
-          document.querySelector(sel).after(resp_icon);
-        } else {
-          $(sel).after(icon);
-        }
-        // after
+        document.querySelector(sel).after(hamb ? resp_icon : nav_icon);
       } else if (item.position !== undefined && item.position == 'after') {
-        if (hamb == true) {
-          target_li.after(resp_icon);
-        } else {
-          $('#menu').append(icon);
-        }
-        // before
+        // after
+        target_li.after(hamb ? resp_icon : nav_icon);
       } else {
-        if (hamb == true) {
-          target_li.before(resp_icon)
-        } else {
-          $('#menu li:last').before(icon);
-        }
+        // before
+        target_li.before(hamb ? resp_icon : nav_icon);
       }
     }
     const append_links = (links, hamb = true) => {
