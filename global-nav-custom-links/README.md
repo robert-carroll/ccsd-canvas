@@ -95,7 +95,7 @@ Trying using elimination, instead of inclusion, to find users that don't have em
 // customizing based on roles
 const links = [];
 // if the user is not a teacher, admin, or root_admin; user, student, observer only
-if (!['teacher', 'admin', 'root_admin'].some(a => ENV.current_user_roles.includes(a)))
+if (!['teacher', 'admin', 'root_admin'].some(a => ENV.current_user_roles.includes(a))) {
   // links for user, student, observer
   links.push({
     title: 'Canvas Community',

@@ -151,7 +151,7 @@ Trying using elimination, instead of inclusion, to find users that don't have em
 ```js
 // customizing based on roles
 // if the user is not a teacher, admin, or root_admin; user, student, observer only
-if (!['teacher', 'admin', 'root_admin'].some(a => ENV.current_user_roles.includes(a)))
+if (!['teacher', 'admin', 'root_admin'].some(a => ENV.current_user_roles.includes(a))) {
     // links for user, student, observer
     TraybyRole.trayLinks.push({ href: 'http://www.example.com/your-library', title: 'Student Library', desc:'Optional text description' })
     TraybyRole.trayLinks.push({ href: 'http://www.google.com', title: 'Google' })
