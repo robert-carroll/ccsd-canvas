@@ -6,6 +6,9 @@ Allows adding custom icons and links to the Canvas global navigation and respons
 ![](https://ccsd-canvas.s3-us-west-2.amazonaws.com/git-docs/global-nav-custom-links.png)
 ![](https://ccsd-canvas.s3-us-west-2.amazonaws.com/git-docs/global-nav-custom-links-resp.png) 
 
+### Right to Left Languages
+Now handles global and responsive nav for right to left languages
+
 ### Multiple Links
 Create multiple Canvas global navigation links with icons
 

@@ -33,15 +33,15 @@
   ];
 
   // leave this alone
-  const globalNavCustomLinks = () => {
+  const globalNavCustomLinks = (dir) => {
     const global_nav_sel = '#menu';
-    const hamb_menu_sel = 'div[role="dialog"][aria-label="Global Navigation"] ul';
+    const hamb_menu_sel = dir == 'ltr' ? `div[role="dialog"][aria-label="Global Navigation"] ul` : `span[dir="rtl"] div[role="dialog"] ul`;
     if (!document.querySelector(global_nav_sel) && !document.querySelector(hamb_menu_sel)) return;
 
     const nav_item_append = (item, hamb = true) => {
       const tidle = item.title.replace(/\W/g, '_').toLowerCase();
 
-      // clone and create a responsive nav icon
+      // clone and create the icon
       const target_ul = hamb ? hamb_menu_sel : global_nav_sel;
       const target_li = document.querySelector(`${target_ul} li:last-child`);
       const dash_icon = hamb ? `${hamb_menu_sel} svg[name="IconDashboard"]` : `#global_nav_dashboard_link`;
@@ -142,7 +142,8 @@
         return;
       }
 
-      if (rspv_nav != null) {
+      //if (rspv_nav != null) {
+      if (rspv_nav != null && (document.querySelector('.mobile-header-hamburger').offsetParent != null)) {
         observer.disconnect();
         append_links(links, true);
         exit_burger_tray();
@@ -190,6 +191,6 @@
     }
   })();
 
-  // add links to menu
-  globalNavCustomLinks(links);
+  // todo: find a ENV or DOM point that lets us automate language direction for all
+  globalNavCustomLinks('ltr');
 })();
