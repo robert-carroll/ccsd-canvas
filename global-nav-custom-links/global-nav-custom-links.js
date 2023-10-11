@@ -35,7 +35,7 @@
   // leave this alone
   const globalNavCustomLinks = (dir) => {
     const global_nav_sel = '#menu';
-    const hamb_menu_sel = dir == 'ltr' ? `div[role="dialog"][aria-label="Global Navigation"] ul` : `span[dir="rtl"] div[role="dialog"] ul`;
+    const hamb_menu_sel = `span[dir="${dir}"] div[role="dialog"] ul`;
     if (!document.querySelector(global_nav_sel) && !document.querySelector(hamb_menu_sel)) return;
 
     const nav_item_append = (item, hamb = true) => {
