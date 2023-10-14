@@ -58,7 +58,7 @@
       }
       try {
         // inst-ui 7 or 8 or global or hamb
-        var icon_text_el = icon.querySelector('span[letter-spacing="normal"') || (icon.querySelector('.menu-item__text') || icon.querySelector('span[class$="text"]'));
+        var icon_text_el = icon.querySelector('span[letter-spacing="normal"]') || (icon.querySelector('.menu-item__text') || icon.querySelector('span[class$="text"]'));
         icon_text_el.textContent = item.title;
       } catch (e) {
         console.log(e)
