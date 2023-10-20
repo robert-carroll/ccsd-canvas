@@ -33,9 +33,10 @@
   ];
 
   // leave this alone
-  const globalNavCustomLinks = (dir) => {
+  const globalNavCustomLinks = () => {
+    const lang_dir = document.querySelector('html').getAttribute('dir') ?? 'ltr';
     const global_nav_sel = '#menu';
-    const hamb_menu_sel = `span[dir="${dir}"] div[role="dialog"] ul`;
+    const hamb_menu_sel = `span[dir="${lang_dir}"] div[role="dialog"] ul`;
     if (!document.querySelector(global_nav_sel) && !document.querySelector(hamb_menu_sel)) return;
 
     const nav_item_append = (item, hamb = true) => {
@@ -191,6 +192,7 @@
     }
   })();
 
-  // todo: find a ENV or DOM point that lets us automate language direction for all
-  globalNavCustomLinks('ltr');
+  // add items to menu
+  globalNavCustomLinks();
+
 })();
